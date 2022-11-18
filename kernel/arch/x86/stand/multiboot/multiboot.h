@@ -1,0 +1,13 @@
+#ifndef _H_MULTIBOOT_H
+#define _H_MULTIBOOT_H
+
+#define MLTB1_MAGIC 	0x1BADB002
+#define MLTB1_PAGING  	0x1
+#define MLTB1_MEMINFO 	0x2
+
+/*
+#define MULTIBOOT2_MAGIC 		0xE85250D6
+#define MULTIBOOT2_ARCH_X86_PROT	0x0
+*/
+
+#endif /* _H_MULTIBOOT_H */
