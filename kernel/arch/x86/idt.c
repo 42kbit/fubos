@@ -1,8 +1,10 @@
 #include <asm/idt.h>
 /* for selectors */
 #include <asm/gdt.h>
+#include <asm/x86.h>
+#include <asm/pic.h>
 
-#include "isr.h"
+#include <asm/isr.h>
 
 idt_entry_t 	idt[IDT_NENT];
 
@@ -11,39 +13,44 @@ idt_ptr_t	idt_ptr = {
 	.ptr = (u32)&idt
 };
 
+intr_handler_t intr_handlers[IDT_NENT];
+
 void idt_load_entry( idt_entry_t* table,
 		u8 where,
 		u32 handler,
 		u16 selector,
 		u8 gt,
-		u8 dpl )
+		u8 dpl,
+		u8 present)
 {
-	idt_entry_t e = idt_make_entry(handler, selector, gt, dpl);
+	idt_entry_t e = idt_make_entry(handler, selector, gt, dpl, present);
 	table[where] = e;
 }
 
-/* not arch independent code will be fixed later */
-
-static volatile u8 * const vga_text = (volatile u8*) 0xb8000;
-#define get_hex_digit(x)\
-	(x <= 9? (x+'0') : (x-10+'a'))
-static inline void sget_hex(const void* _mem, u32 len, char* buf){
-	const char* mem = _mem;
-	for (i32 i = 0; i < len; i++){
-		/* works for little endian */
-		buf[i * 2 + 1] = get_hex_digit(bitcut(mem[i], 0, 4));
-		buf[i * 2 + 0] = get_hex_digit(bitcut(mem[i], 4, 4));
-	}
+void reg_handler(u8 intno, intr_handler_t handler){
+	intr_handlers[intno] = handler;
 }
 
-static inline void vga_write(const char* str, u32 len){
-	for (i32 i = 0; i < len; i++){
-		vga_text[i*2] = str[i];
+/* to organize code, all handlers in intr_handlers.c */
+void stub_handler (isr_regs_t*);
+
+void init_intr(void){
+	for (int i = 0; i < IDT_NENT; i++){
+		void* proc = isr_addr(i);
+		idt_load_entry(idt, i, (u32)proc, GDT_KCODE, 
+			IDT_GT_32_INTR, 0, 1);
+		reg_handler(i, stub_handler);
 	}
+	flush_idt(&idt_ptr);
 }
 
+/* i could do that bullshit in asm but meh...*/
 void isr_handler (isr_regs_t sframe){
-	char val[8];
-	sget_hex(&(sframe.intno), 4, val);
-	vga_write(val, 8);
+	if (isr_is_irq(sframe.intno)){
+		pic_send_eoi(isr_to_irq(sframe.intno));
+	}
+	intr_handler_t handler = intr_handlers[sframe.intno];
+	if (handler){
+		handler(&sframe);
+	}
 }

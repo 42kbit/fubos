@@ -6,20 +6,18 @@
 #define IDT_NENT 	256
 
 #define IDT_GT_TASK	0x5
-#define IDT_GT_16_INTR 0x6
-#define IDT_GT_16_TRAP 0x7
+#define IDT_GT_16_INTR 	0x6
+#define IDT_GT_16_TRAP 	0x7
 
-#define IDT_GT_32_INTR 0xe
-#define IDT_GT_32_TRAP 0xf
+#define IDT_GT_32_INTR 	0xe
+#define IDT_GT_32_TRAP 	0xf
 
-#ifdef __ASSEMBLY__
-#undef __ASSEMBLY__
-#else
+#ifndef __ASSEMBLY__
 
 #include <fubos/ints.h>
 #include <fubos/attr.h>
 
-#define idt_make_entry(_handler, _selector, _gtype, _dpl)\
+#define idt_make_entry(_handler, _selector, _gtype, _dpl, _p)\
 	{\
 		.offset 	= bitcut(_handler, 0, 16),\
 		.selector 	= _selector,\
@@ -27,7 +25,7 @@
 		.gt		= _gtype,\
 		.__zero 	= 0,\
 		.dpl		= _dpl,\
-		.p		= 1,\
+		.p		= _p,\
 		.offset_high	= bitcut(_handler, 16, 16)\
 	}
 
@@ -60,7 +58,8 @@ void idt_load_entry (
 		u32 handler,
 		u16 selector,
 		u8 gt,
-		u8 dpl );
+		u8 dpl,
+		u8 present );
 
 #endif /* __ASSEMBLY__ */
 #endif /* __H_IDT_H */

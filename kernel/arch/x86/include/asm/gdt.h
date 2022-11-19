@@ -29,9 +29,7 @@
 #define GDT_PROTMODE	(bit(2))
 #define GDT_LONGMODE	(bit(1))
 
-#ifdef __ASSEMBLY__
-#undef __ASSEMBLY__
-#else
+#ifndef __ASSEMBLY__
 
 #include <fubos/ints.h>
 #include <fubos/attr.h>

@@ -1,19 +1,20 @@
 /* seg_reload.S */
 #include <asm/gdt.h>
 #include <asm/idt.h>
-#include "isr.h"
+#include <asm/isr.h>
 
 void cpu_relax(void);
 
-void arch_spec(void){
+/* idt.c */
+void init_intr(void);
+/* pic.c */
+void init_irq(void);
+
+void arch_init(void){
 	flush_gdt(&gdt_ptr);
 
-	for (int i = 0; i < IDT_NENT; i++){
-		void* proc = isr_addr(i);
-		idt_load_entry(idt, i, (u32)proc, GDT_KCODE, 
-			IDT_GT_32_INTR, 0);
-	}
-	flush_idt(&idt_ptr);
+	init_intr();
+	init_irq();
 }
 
 void cpu_relax(void) {

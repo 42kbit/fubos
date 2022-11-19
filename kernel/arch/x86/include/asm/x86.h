@@ -1,6 +1,8 @@
 #ifndef __H_X86_H
 #define __H_X86_H
 
+#include <fubos/ints.h>
+
 /* register get/set recepie
  * 
  * Generates following:
@@ -28,6 +30,19 @@
 #define __x86_reg16_set(x, var)\
 	__x86_reg_set(x,w,var)
 
+/* 
+ * 	Source
+ * 	https://wiki.osdev.org/Inline_Assembly
+ */
+static inline u8 inb (u16 port){
+    u8 val;
+    asm volatile("inb %1, %0" : "=a"(val) : "Nd"(port));
+    return val;
+}
+
+static inline void outb (u16 port, u8 value){
+    asm volatile("outb %0, %1" :: "r"(value), "r"(port));
+}
 
 static inline u16 ds(void)
 {
@@ -75,10 +90,6 @@ static inline u16 gs(void)
 static inline void set_gs(u16 seg)
 {
 	__x86_reg16_set(gs,seg);
-}
-
-static inline void sgdt(void *dst){
-	asm volatile("sgdt %0" : "=m"(*(char*)dst));
 }
 
 static inline u32 cr0(){

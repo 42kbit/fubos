@@ -18,6 +18,14 @@ __isr_common:
 	movw %ax, %gs
 	movw %ax, %ss
 
+	/*
+
+	this part may seem a little shitty,
+	so asm code calls isr_handler,
+	then isr_handler calls
+	interrup handler, from intr_handlers
+
+	*/
 	call isr_handler
 
 	popl %eax
@@ -32,8 +40,14 @@ __isr_common:
 	sti
 	iret
 
+/* alignment needed (see isr.h) */
+
+.globl __isr_proc_align
+__isr_proc_align = 16
+
+
 .macro DEF_ISR num _has_error _globl
-	.align 16
+	.align __isr_proc_align
 	.if \_globl
 		.globl isr\num
 		isr\num:
@@ -47,18 +61,12 @@ __isr_common:
 		jmp __isr_common
 .endm
 
-
-.globl __isr_proc_len
-__isr_proc_len = __isr_proc_len_end - __isr_proc_len_start
-
 /*
 	isr.h
 void isr0	(void);
 */
-__isr_proc_len_start:
 /* division error */
 DEF_ISR 0,0,1
-__isr_proc_len_end:
 DEF_ISR 1,0,0 
 DEF_ISR 2,0,0
 DEF_ISR 3,0,0

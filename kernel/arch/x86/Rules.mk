@@ -2,6 +2,8 @@
 COBJS_$(d)	:=		\
 	$(od)/gdt.o 		\
 	$(od)/idt.o		\
+	$(od)/intr_handlers.o	\
+	$(od)/pic.o		\
 	$(od)/arch_spec.o	
 
 ASMOBJS_$(d)	:=		\
