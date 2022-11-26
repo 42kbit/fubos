@@ -36,9 +36,6 @@ void init_timer (u32 freq){
 }
 
 void kmain(void){
-#ifdef CONFIG_TEST
-	cpu_relax();
-#endif
 	arch_init();
 
 	init_timer(50);
