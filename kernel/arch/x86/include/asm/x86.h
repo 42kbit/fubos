@@ -1,6 +1,8 @@
 #ifndef __H_X86_H
 #define __H_X86_H
 
+#ifndef __ASSEMBLY__
+
 #include <fubos/ints.h>
 
 /* register get/set recepie
@@ -104,4 +106,5 @@ static inline u32 cr4(){
 	return seg;
 }
 
-#endif
+#endif /* __ASSEMBLY__ */
+#endif /* __H_X86_H */

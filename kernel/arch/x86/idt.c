@@ -5,6 +5,7 @@
 #include <asm/pic.h>
 
 #include <asm/isr.h>
+#include <asm/page.h>
 
 idt_entry_t 	idt[IDT_NENT];
 
@@ -41,6 +42,7 @@ void init_intr(void){
 			IDT_GT_32_INTR, 0, 1);
 		reg_handler(i, stub_handler);
 	}
+	reg_handler(14, on_page_fault);
 	flush_idt(&idt_ptr);
 }
 

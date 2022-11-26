@@ -3,6 +3,10 @@
 #include <asm/idt.h>
 #include <asm/isr.h>
 
+static inline void enable_intr(void){
+	asm volatile ("sti;");
+}
+
 void cpu_relax(void);
 
 /* idt.c */
@@ -15,6 +19,7 @@ void arch_init(void){
 
 	init_intr();
 	init_irq();
+	enable_intr();
 }
 
 void cpu_relax(void) {

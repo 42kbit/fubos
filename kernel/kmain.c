@@ -36,10 +36,8 @@ void init_timer (u32 freq){
 }
 
 void kmain(void){
-	/* invoke arch specific preparations */
 	arch_init();
 
-	asm volatile ("sti;");
 	init_timer(50);
 
 	cpu_relax();

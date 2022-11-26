@@ -2,5 +2,6 @@ FUBOS
 
 This shit-kernel posted under WTFPL, so if you need some code from it, use it as you wish.
 
+P.S First commit was on 17-November-2022 not 11-th
 Updated:
-November 11-th 2022
+November 19-th 2022

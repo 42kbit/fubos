@@ -1,6 +1,8 @@
 #include <asm/idt.h>
 #include <asm/isr.h>
 
+/* VGA bullshit will be removed later */
+
 static volatile u8 * const vga_text = (volatile u8*) 0xb8000;
 #define get_hex_digit(x)\
 	(x <= 9? (x+'0') : (x-10+'a'))
@@ -19,6 +21,13 @@ static inline void vga_write(const char* str, u32 len){
 	}
 }
 
+void stub_handler(isr_regs_t* regs);
+
+void on_page_fault(isr_regs_t* regs){
+	stub_handler(regs);
+}
+
+/* Unhandled exceptions go here */
 void stub_handler(isr_regs_t* regs){
 	char buf[8];
 	sget_hex(&(regs->intno), 4, buf);

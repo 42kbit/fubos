@@ -26,6 +26,9 @@
 
 #define bitcut(val, where, by) ((val >> where) & bitmask(by))
 
+#define align(x, to) ((x + (to - 1)) & ~(to - 1))
+#define padding(x,to) (align(x,to)-x)
+
 #define kib(x) (x * (1<<10))
 #define mib(x) (x * (1<<20))
 #define gib(x) (x * (1<<30))
