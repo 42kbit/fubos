@@ -20,6 +20,7 @@
  *
  */
 
+#include <fubos/stddef.h>
 #include <fubos/symbol.h>
 #include <asm/idt.h>
 
@@ -49,7 +50,7 @@ void reg_handler(u8 intno, intr_handler_t);
  * we can abuse it (isr_addr) to have easy access to needed irq
  */
 
-#define isr_addr(n) (void(*)(isr_regs_t*))((char*)isr0 + n * symval(__isr_proc_align))
+#define isr_addr(n) (void(*)(isr_regs_t*))((char*)isr0 + n * __symval(__isr_proc_align, size_t))
 
 #define isr_is_irq(isrn)	(isrn >= IRQ0 && isrn <= IRQ15)
 

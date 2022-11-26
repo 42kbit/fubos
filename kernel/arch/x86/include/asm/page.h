@@ -42,8 +42,6 @@ struct pg_tbl_node {
 } __packed;
 typedef struct pg_tbl_node pg_tbl_node_t;
 
-typedef u32 phys_addr;
-
 struct pg_tbl {
 	pg_tbl_node_t pt_nodes[PG_TBL_NENT];
 };

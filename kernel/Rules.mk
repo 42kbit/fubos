@@ -1,6 +1,9 @@
 KBIN	:=$(bd)/kernel.bin
 
-COBJS_$(d)	:=$(od)/kmain.o
+COBJS_$(d)	:=\
+	$(od)/kmain.o\
+	$(od)/kheap.o
+
 OBJS_$(d)	:=$(COBJS_$(d))
 
 $(call append,TGT_ETC,$(d))

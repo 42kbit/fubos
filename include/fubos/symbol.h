@@ -3,6 +3,6 @@
 
 typedef char sym;
 
-#define symval(x) (unsigned long)(&x)
+#define __symval(x, type) (type)(&x)
 
 #endif /*__H_FUBOS_SYMBOL_H*/
