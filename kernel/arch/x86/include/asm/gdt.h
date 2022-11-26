@@ -31,8 +31,8 @@
 
 #ifndef __ASSEMBLY__
 
+#include <fubos/compiler_attributes.h>
 #include <fubos/ints.h>
-#include <fubos/attr.h>
 
 #define gdt_make_entry(_base, _limit, _access, _flags)\
 	{\
@@ -72,13 +72,13 @@ struct gdt_entry{
 	   db		: 1,
 	   g		: 1;
 	u8 base_high;
-} atr_packed;
+} __packed;
 typedef struct gdt_entry gdt_entry_t;
 
 struct gdt_ptr{
 	u16 size;
 	u32 ptr;
-} atr_packed;
+} __packed;
 typedef struct gdt_ptr gdt_ptr_t;
 
 extern gdt_ptr_t gdt_ptr;

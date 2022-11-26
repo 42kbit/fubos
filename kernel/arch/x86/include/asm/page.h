@@ -9,7 +9,7 @@
 
 #ifndef __ASSEMBLY__
 
-#include <fubos/attr.h>
+#include <fubos/compiler_attributes.h>
 
 struct pg_dir_node {
 	u32
@@ -23,7 +23,7 @@ struct pg_dir_node {
 	   page_size	: 1,
 	   avl		: 4,
 	   adr		: 20;
-} atr_packed;
+} __packed;
 typedef struct pg_dir_node pg_dir_node_t;
 
 struct pg_tbl_node {
@@ -39,7 +39,7 @@ struct pg_tbl_node {
 	   global	: 1,
 	   avl		: 3,
 	   adr		: 20;
-} atr_packed;
+} __packed;
 typedef struct pg_tbl_node pg_tbl_node_t;
 
 typedef u32 phys_addr;

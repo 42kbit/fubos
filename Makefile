@@ -3,6 +3,7 @@
 
 DIR_OUT	?=.out
 DIR_OBJS :=$(DIR_OUT)/.objs
+
 DIR_BIN	?=$(DIR_OUT)/bin
 DIR_SBIN?=$(DIR_OUT)/sbin
 DIR_LIB	?=$(DIR_OUT)/lib
@@ -72,6 +73,8 @@ AS_COMP	=$(call style,$(__AS_COMP),[AS] $@)
 CC_COMP	=$(call style,$(__CC_COMP),[CC] $@)
 L_LINK	=$(call style,$(__L_LINK),[LD] $@)
 
+OBJS_TOTAL	:=
+
 # sp = stack pointer
 # dirstack_* = stack of directories
 # d = current directory (in this very include)
@@ -124,6 +127,8 @@ $$(cincdeps)
 endif
 )
 
+$(eval OBJS_TOTAL +=$(OBJS_$(d)))
+
 $(dstack_pop)
 
 endef
@@ -149,6 +154,9 @@ $(foreach val,$(SUBDIRS),\
 	$(eval include $(dir)/Rules.mk)\
 	$(call dinclude)\
 	$(rend))
+
+$(OBJS_TOTAL): $(CFG_FILE)
+$(info $(OBJS_TOTAL))
 
 $(DIR_OBJS)/%.o: %.c
 	$(dirguard)

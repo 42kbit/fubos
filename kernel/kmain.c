@@ -10,7 +10,7 @@
 /* not arch independent code will be fixed later */
 void arch_init(void);
 
-atr_noret atr_weak void cpu_relax(void){
+__noreturn __weak void cpu_relax(void){
 	while (1);
 }
 
@@ -36,6 +36,9 @@ void init_timer (u32 freq){
 }
 
 void kmain(void){
+#ifdef CONFIG_TEST
+	cpu_relax();
+#endif
 	arch_init();
 
 	init_timer(50);

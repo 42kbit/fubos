@@ -15,7 +15,7 @@
 #ifndef __ASSEMBLY__
 
 #include <fubos/ints.h>
-#include <fubos/attr.h>
+#include <fubos/compiler_attributes.h>
 
 #define idt_make_entry(_handler, _selector, _gtype, _dpl, _p)\
 	{\
@@ -38,13 +38,13 @@ struct idt_entry {
 	    dpl		: 2,
 	    p		: 1;
 	u16 offset_high;
-} atr_packed;
+} __packed;
 typedef struct idt_entry idt_entry_t;
 
 struct idt_ptr {
 	u16 size;
 	u32 ptr;
-} atr_packed;
+} __packed;
 typedef struct idt_ptr idt_ptr_t;
 
 extern idt_entry_t 	idt[IDT_NENT];
