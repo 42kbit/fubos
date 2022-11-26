@@ -13,8 +13,8 @@ CFG_FILE	:=Makefile.config
 ifneq ("$(wildcard $(CFG_FILE))","")
 $(eval include $(CFG_FILE))
 else
-$(info $(CFG_FILE) file not present! Copying from etc/$(CFG_FILE))
-$(shell cp cfg/$(CFG_FILE) .)
+$(info $(CFG_FILE) file not present! Copying from etc/$(CFG_FILE)-template)
+$(shell cp cfg/$(CFG_FILE)-template ./$(CFG_FILE))
 $(error now configure $(CFG_FILE) and go on)
 endif
 
@@ -24,6 +24,11 @@ CF_ALL	:=-Wall -Iinclude -Ikernel/arch/$(ARCH)/include
 ASF_ALL	:=-Wall -Iinclude -Ikernel/arch/$(ARCH)/include
 # LINK FLAGS
 LF_ALL	:=
+
+CONFIG_ALL	:=$(filter CONFIG_%,$(.VARIABLES))
+$(foreach c,$(CONFIG_ALL),\
+	$(eval CF_ALL +=-D$(c)=$($(c)) ) \
+	$(eval ASF_ALL +=-D$(c)=$($(c)) ))
 
 # default C compiler
 CC	?=gcc

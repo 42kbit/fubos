@@ -1,0 +1,11 @@
+CC	:=/usr/bin/gcc
+# Note : Assembly code used with C preprocessor 
+AS	:=/usr/bin/as
+LD	:=/usr/bin/ld
+ARCH	:=x86
+DEBUG	:=n
+BOOTSTR	:=multiboot
+
+# Build config flags
+
+CONFIG_TEST :=15
