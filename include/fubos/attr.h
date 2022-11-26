@@ -1,5 +1,5 @@
-#ifndef __H_SECTIONS_H
-#define __H_SECTIONS_H
+#ifndef __H_FUBOS_SECTIONS_H
+#define __H_FUBOS_SECTIONS_H
 
 #define atr(x)\
 	__attribute__((x))
@@ -16,4 +16,4 @@
 #define atr_weak\
 	atr(weak)
 
-#endif /* __H_SECTIONS_H */
+#endif /* __H_FUBOS_SECTIONS_H */

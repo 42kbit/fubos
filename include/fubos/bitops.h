@@ -1,5 +1,5 @@
-#ifndef __H_BITOPS_H
-#define __H_BITOPS_H
+#ifndef __H_FUBOS_BITOPS_H
+#define __H_FUBOS_BITOPS_H
 
 /* bit(0) = 0b00000001 */
 /* bit(4) = 0b00010000 */
@@ -33,4 +33,4 @@
 #define mib(x) (x * (1<<20))
 #define gib(x) (x * (1<<30))
 
-#endif
+#endif /* __H_FUBOS_BITOPS_H */
