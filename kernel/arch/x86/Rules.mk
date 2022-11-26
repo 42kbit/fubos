@@ -6,6 +6,12 @@ COBJS_$(d)	:=		\
 	$(od)/pic.o		\
 	$(od)/arch_spec.o	
 
+ifneq ($(filter CONFIG_LOG_INPLACE,$(.VARIABLES)),)
+COBJS_$(d)	+=$(od)/vga.o
+else
+$(error CONFIG_LOG_INPLACE disabled (feature not supported yet))
+endif
+
 ASMOBJS_$(d)	:=		\
 	$(od)/seg_reload.o	\
 	$(od)/isr.o

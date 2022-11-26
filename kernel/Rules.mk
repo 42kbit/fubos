@@ -2,7 +2,8 @@ KBIN	:=$(bd)/kernel.bin
 
 COBJS_$(d)	:=\
 	$(od)/kmain.o\
-	$(od)/kheap.o
+	$(od)/kheap.o\
+	$(od)/klog.o
 
 OBJS_$(d)	:=$(COBJS_$(d))
 

@@ -8,4 +8,6 @@ BOOTSTR	:=multiboot
 
 # Build config flags
 
-CONFIG_TEST :=15
+# no driver for logging kernel message,
+# so delegate this to kernel (for now)
+CONFIG_LOG_INPLACE :=

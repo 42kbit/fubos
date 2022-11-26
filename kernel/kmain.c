@@ -7,12 +7,12 @@
 #include <fubos/bitops.h>
 #include <fubos/symbol.h>
 
-/* not arch independent code will be fixed later */
-void arch_init(void);
+#include <fubos/klog.h>
 
-__noreturn __weak void cpu_relax(void){
-	while (1);
-}
+/* not arch independent code will be fixed later */
+void arch_init	(void);
+void cpu_relax	(void);
+void cpu_die	(void);
 
 #define __X86_INT(x) asm volatile ( "int $" #x ";" )
 
@@ -37,6 +37,10 @@ void init_timer (u32 freq){
 
 void kmain(void){
 	arch_init();
+
+	if (init_klog_buffer() < 0)
+		cpu_die();
+	kprintf("klog initialized successfully\n");
 
 	init_timer(50);
 

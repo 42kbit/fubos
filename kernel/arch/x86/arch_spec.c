@@ -26,3 +26,9 @@ void cpu_relax(void) {
 	while (1) 
 		asm volatile("hlt");
 }
+
+void cpu_die(void){
+	while (1){
+		asm volatile ("cli; hlt;");
+	}
+}
