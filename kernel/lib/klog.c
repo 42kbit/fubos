@@ -31,10 +31,6 @@ char klog_getc_at	(off_t index){
 	return klog_buffer[index % KLOG_BUFFER_LEN];
 }
 
-static inline size_t __kfmt_len(const char* fmt){
-	return 0;
-}
-
 int kvsprintf	(char * dst, const char * fmt, va_list args){
 	return kvsnprintf (dst, KPRINTF_MAX_LEN, fmt, args);
 }
@@ -49,16 +45,8 @@ int ksprintf	(char * dst, const char * fmt, ...){
 	return val;
 }
 
-static inline void* _memset (void * dst, char n, size_t len){
-	for (int i = 0; i < len; i++){
-		((char*)dst)[i] = n;
-	}
-	return dst;
-}
-
 int kvprintf	(const char * fmt, va_list args){
 	char str[KPRINTF_MAX_LEN];
-	/* TODO: need memset but later*/
 	int written;
 	written = kvsnprintf (str, KPRINTF_MAX_LEN, fmt, args);
 	
