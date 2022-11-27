@@ -9,14 +9,14 @@ static inline void reverse_inplace(char * str, size_t len){
 	}
 }
 
-static inline ptrdiff_t utoa (u32 n, char * buf){
+static inline ptrdiff_t utoa (u32 n, char * buf, u8 base, const char* digits){
 	char * buf_iter = buf;
 	i32 digit;
 	while (n != 0){
-		digit = n % 10;
-		n /= 10;
+		digit = n % base;
+		n /= base;
 
-		*(buf_iter++) = digit + '0';
+		*(buf_iter++) = digits[digit];
 	}
 	reverse_inplace(buf, strlen(buf));
 	return buf_iter - buf;
@@ -26,6 +26,9 @@ int kvsnprintf	(char * buf, size_t size, const char * fmt, va_list args)
 {
 	const char * fmt_ptr = fmt;
 	char * buf_ptr = buf, c;
+	ptrdiff_t diff;
+
+	static const char * digits = "0123456789abcdef";
 
 	while ((c = *(fmt_ptr++))){
 		if (c == '%'){
@@ -34,7 +37,11 @@ int kvsnprintf	(char * buf, size_t size, const char * fmt, va_list args)
 					*(buf_ptr++) = c;
 					break;
 				case 'u':
-					ptrdiff_t diff = utoa(va_arg(args, u32), buf_ptr);
+					diff = utoa(va_arg(args, u32), buf_ptr, 10, digits);
+					buf_ptr += diff;
+					break;
+				case 'p':
+					diff = utoa(va_arg(args, addr_t), buf_ptr, 16, digits);
 					buf_ptr += diff;
 					break;
 				default:

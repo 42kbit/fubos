@@ -21,7 +21,9 @@ void cpu_die	(void);
 u32 ticks_passed = 0;
 
 void timer_callback (isr_regs_t*){
+	/*
 	kprintf("Timer %u\n", ticks_passed++);
+	*/
 }
 
 void init_timer (u32 freq){
@@ -42,6 +44,7 @@ void kmain(void){
 	if (init_klog_buffer() < 0)
 		cpu_die();
 	kprintf("klog initialized successfully\n");
+	kprintf("%%p = %p, %%u = %u\n", (void*)0xdeadb, 15);
 
 	init_timer(50);
 
