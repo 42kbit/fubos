@@ -47,6 +47,7 @@ int ksprintf	(char * dst, const char * fmt, ...){
 
 int kvprintf	(const char * fmt, va_list args){
 	char str[KPRINTF_MAX_LEN];
+	memset(str, 0, KPRINTF_MAX_LEN * sizeof(char));
 	int written;
 	written = kvsnprintf (str, KPRINTF_MAX_LEN, fmt, args);
 	

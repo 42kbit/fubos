@@ -3,6 +3,7 @@
 
 #include <fubos/stdarg.h>
 #include <fubos/stddef.h>
+#include <fubos/string.h>
 
 #include <fubos/kheap.h>
 #include <fubos/klog.h>

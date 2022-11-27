@@ -21,7 +21,7 @@ void cpu_die	(void);
 u32 ticks_passed = 0;
 
 void timer_callback (isr_regs_t*){
-	kprintf("Timer %%\n", ticks_passed++);
+	kprintf("Timer %u\n", ticks_passed++);
 }
 
 void init_timer (u32 freq){
