@@ -2,8 +2,7 @@ KBIN	:=$(bd)/kernel.bin
 
 COBJS_$(d)	:=\
 	$(od)/kmain.o\
-	$(od)/kheap.o\
-	$(od)/klog.o
+	$(od)/kheap.o
 
 OBJS_$(d)	:=$(COBJS_$(d))
 
@@ -18,4 +17,4 @@ $(KBIN): $(COBJS_$(d))
 $(KBIN):
 	$(L_LINK)
 
-SUBDIRS_$(d)	:=arch
+SUBDIRS_$(d)	:=arch lib

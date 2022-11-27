@@ -1,10 +1,4 @@
-#include <fubos/stdarg.h>
-#include <fubos/stddef.h>
-
-#include <fubos/kheap.h>
-#include <fubos/klog.h>
-
-#include <fubos/types.h>
+#include "klog.h"
 
 char * klog_buffer;
 off_t klog_buffer_off;
@@ -40,30 +34,6 @@ char klog_getc_at	(off_t index){
 static inline size_t __kfmt_len(const char* fmt){
 	return 0;
 }
-
-int kvsnprintf	(char * buf, size_t size, const char * fmt, va_list args)
-{
-	typedef enum fmt_state {
-		NONE,
-		OPERAND
-	} fmt_state_t;
-
-	fmt_state_t fmts = NONE;
-
-	const char * fmt_iter;
-	char * buf_iter = buf;
-	for (fmt_iter = fmt; *fmt_iter != '\0' || ((ptrdiff_t)(buf_iter - buf) < size); fmt_iter++, buf_iter++){
-		switch (*fmt_iter){
-			default:
-				*buf_iter = *fmt_iter;
-				break;
-		}
-	}
-	buf[size] = '\0';
-	return (int)(fmt_iter - fmt);
-}
-
-#define KPRINTF_MAX_LEN 0xff
 
 int kvsprintf	(char * dst, const char * fmt, va_list args){
 	return kvsnprintf (dst, KPRINTF_MAX_LEN, fmt, args);
