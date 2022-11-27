@@ -37,6 +37,34 @@ char klog_getc_at	(off_t index){
 	return klog_buffer[index % KLOG_BUFFER_LEN];
 }
 
+static inline size_t __kfmt_len(const char* fmt){
+	return 0;
+}
+
+int kvsnprintf	(char * buf, size_t size, const char * fmt, va_list args)
+{
+	typedef enum fmt_state {
+		NONE,
+		OPERAND
+	} fmt_state_t;
+
+	fmt_state_t fmts = NONE;
+
+	const char * fmt_iter;
+	char * buf_iter = buf;
+	for (fmt_iter = fmt; *fmt_iter != '\0'; fmt_iter++, buf_iter++){
+		switch (*fmt_iter){
+			case '%':
+				if (fmts == OPERAND)
+					*buf_iter = '%';
+				else 
+					fmts = OPERAND;
+				break;
+		}
+	}
+	return (int)(fmt_iter - fmt);
+}
+
 int kvsprintf	(char * dst, const char * fmt, va_list args){
 	return 0;
 }

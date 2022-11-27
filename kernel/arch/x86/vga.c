@@ -5,7 +5,19 @@
 vga_node_t * const vga_text = (vga_node_t*) 0xb8000;
 off_t vga_text_off = 0;
 
-#error "TODO VGA DRIVER"
+#define VGA_LAST_LINE_OFF VGA_BUFFER_LEN - VGA_WIDTH
+
+static inline void vga_scroll(){
+	vga_text_off %= VGA_BUFFER_LEN;
+	for (int i = 0; i < VGA_BUFFER_LEN; i++){
+		vga_text[i].c = vga_text[i + VGA_WIDTH].c;
+	}
+	for (int i = VGA_LAST_LINE_OFF; i < VGA_BUFFER_LEN; i++){
+		vga_text[i].c = ' ';
+	}
+	/* set offset to last line */
+	vga_text_off = VGA_LAST_LINE_OFF;
+}
 
 static inline void vga_putc(char c){
 	switch (c){
@@ -18,7 +30,15 @@ static inline void vga_putc(char c){
 		vga_text_off += 1;
 		break;
 	}
-	vga_text_off %= VGA_BUFFER_LEN;
+	if (vga_text_off >= VGA_BUFFER_LEN){
+		vga_scroll();
+	}
+}
+
+void __init_vga(){
+	for (int i = 0; i < VGA_BUFFER_LEN; i++){
+		vga_text[i].c = ' ';
+	}
 }
 
 void __klog_buffer_flush(){

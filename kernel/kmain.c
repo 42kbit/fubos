@@ -19,8 +19,7 @@ void cpu_die	(void);
 #include <asm/isr.h>
 
 void timer_callback (isr_regs_t*){
-	(*(volatile char*)0xb8000)++;
-	*(volatile char*)0xb8002 = 'a';
+	kprintf("Timer\n");
 }
 
 void init_timer (u32 freq){
