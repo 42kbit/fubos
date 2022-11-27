@@ -18,8 +18,10 @@ void cpu_die	(void);
 
 #include <asm/isr.h>
 
+u32 ticks_passed = 0;
+
 void timer_callback (isr_regs_t*){
-	kprintf("Timer\n");
+	kprintf("Timer %%\n", ticks_passed++);
 }
 
 void init_timer (u32 freq){

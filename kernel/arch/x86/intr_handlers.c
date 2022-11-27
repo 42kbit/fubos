@@ -9,5 +9,5 @@ void on_page_fault(isr_regs_t* regs){
 
 /* Unhandled exceptions go here */
 void stub_handler(isr_regs_t* regs){
-	kprintf("Unhandled exception \n");
+	kprintf("Unhandled exception %u\n", regs->intno);
 }

@@ -52,21 +52,21 @@ int kvsnprintf	(char * buf, size_t size, const char * fmt, va_list args)
 
 	const char * fmt_iter;
 	char * buf_iter = buf;
-	for (fmt_iter = fmt; *fmt_iter != '\0'; fmt_iter++, buf_iter++){
+	for (fmt_iter = fmt; *fmt_iter != '\0' || ((ptrdiff_t)(buf_iter - buf) < size); fmt_iter++, buf_iter++){
 		switch (*fmt_iter){
-			case '%':
-				if (fmts == OPERAND)
-					*buf_iter = '%';
-				else 
-					fmts = OPERAND;
+			default:
+				*buf_iter = *fmt_iter;
 				break;
 		}
 	}
+	buf[size] = '\0';
 	return (int)(fmt_iter - fmt);
 }
 
+#define KPRINTF_MAX_LEN 0xff
+
 int kvsprintf	(char * dst, const char * fmt, va_list args){
-	return 0;
+	return kvsnprintf (dst, KPRINTF_MAX_LEN, fmt, args);
 }
 
 int ksprintf	(char * dst, const char * fmt, ...){
@@ -79,11 +79,23 @@ int ksprintf	(char * dst, const char * fmt, ...){
 	return val;
 }
 
+static inline void* _memset (void * dst, char n, size_t len){
+	for (int i = 0; i < len; i++){
+		((char*)dst)[i] = n;
+	}
+	return dst;
+}
+
 int kvprintf	(const char * fmt, va_list args){
-	for (const char * i = fmt; *i != '\0'; i++){
+	char str[KPRINTF_MAX_LEN];
+	/* TODO: need memset but later*/
+	int written;
+	written = kvsnprintf (str, KPRINTF_MAX_LEN, fmt, args);
+	
+	for (const char * i = str; *i != '\0'; i++){
 		kputc(*i);
 	}
-	return 0;
+	return written;
 }
 
 int kprintf	(const char * fmt, ...){
