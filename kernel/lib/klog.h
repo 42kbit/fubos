@@ -9,6 +9,7 @@
 #include <fubos/klog.h>
 
 #include <fubos/types.h>
+#include <fubos/limits.h>
 
 #define KPRINTF_MAX_LEN 0xff
 

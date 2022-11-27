@@ -3,7 +3,7 @@
 
 #include <fubos/assert.h>
 
-__ASSERT(sizeof(int) == 4)
+__ASSERT(sizeof(int) == 4);
 
 #define UINT_MAX 0xffffffff
 

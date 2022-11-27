@@ -30,7 +30,7 @@ int kvsnprintf	(char * buf, size_t size, const char * fmt, va_list args)
 
 	static const char * digits = "0123456789abcdef";
 
-	while ((c = *(fmt_ptr++))){
+	while ((c = *(fmt_ptr++)) && size-- > 0){
 		if (c == '%'){
 			switch (c = *(fmt_ptr++)){
 				case '%':
@@ -41,7 +41,13 @@ int kvsnprintf	(char * buf, size_t size, const char * fmt, va_list args)
 					buf_ptr += diff;
 					break;
 				case 'p':
+					__strncat_len(buf_ptr, "0x", 2, NULL, (size_t*)&diff);
+					buf_ptr += diff;
 					diff = utoa(va_arg(args, addr_t), buf_ptr, 16, digits);
+					buf_ptr += diff;
+					break;
+				case 's':
+					__strncat_len(buf_ptr, va_arg(args, const char*), INT_MAX, NULL, (size_t*)&diff);
 					buf_ptr += diff;
 					break;
 				default:
