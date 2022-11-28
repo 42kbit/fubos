@@ -10,6 +10,7 @@
 
 #include <fubos/types.h>
 #include <fubos/limits.h>
+#include <fubos/errno.h>
 
 #define KPRINTF_MAX_LEN 0xff
 

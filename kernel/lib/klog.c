@@ -6,7 +6,7 @@ off_t klog_buffer_off;
 int init_klog_buffer(){
 	if ((klog_buffer = (char*)kmalloc(KLOG_BUFFER_LEN)) == NULL){
 		/* this should never fail, but if it is... */
-		return -1;
+		return -EINVAL;
 	}
 	klog_buffer_off = 0;
 	return 0;

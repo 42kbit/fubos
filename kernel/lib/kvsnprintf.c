@@ -1,5 +1,7 @@
 #include "klog.h"
 
+#include <fubos/assert.h>
+
 static inline void reverse_inplace(char * str, size_t len){
 	char tmp;
 	for (i32 i = 0; i < len/2; i++){
@@ -24,6 +26,8 @@ static inline ptrdiff_t utoa (u32 n, char * buf, u8 base, const char* digits){
 
 int kvsnprintf	(char * buf, size_t size, const char * fmt, va_list args)
 {
+	return_val_if (fmt == NULL, -EINVAL);
+
 	const char * fmt_ptr = fmt;
 	char * buf_ptr = buf, c;
 	ptrdiff_t diff;
