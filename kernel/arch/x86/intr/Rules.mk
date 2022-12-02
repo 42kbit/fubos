@@ -1,7 +1,7 @@
 
 COBJS_$(d)	:=		\
 	$(od)/idt.o		\
-	$(od)/stub.o		\
+	$(od)/cisr.o		\
 	$(od)/pic.o 		
 
 ASMOBJS_$(d)	:=		\

@@ -28,12 +28,7 @@ void idt_load_entry( idt_entry_t* table,
 	table[where] = e;
 }
 
-void reg_handler(u8 intno, intr_handler_t handler){
-	intr_handlers[intno] = handler;
-}
-
-/* to organize code, all handlers in intr_handlers.c */
-void stub_handler (isr_regs_t*);
+void stub_handler(struct isr_regs*);
 
 void init_intr(void){
 	for (int i = 0; i < IDT_NENT; i++){
@@ -44,15 +39,4 @@ void init_intr(void){
 	}
 	reg_handler(14, on_page_fault);
 	flush_idt(&idt_ptr);
-}
-
-/* i could do that bullshit in asm but meh...*/
-void isr_handler (isr_regs_t sframe){
-	if (isr_is_irq(sframe.intno)){
-		pic_send_eoi(isr_to_irq(sframe.intno));
-	}
-	intr_handler_t handler = intr_handlers[sframe.intno];
-	if (handler){
-		handler(&sframe);
-	}
 }
