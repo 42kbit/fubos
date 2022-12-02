@@ -1,4 +1,3 @@
-/* seg_reload.S */
 #include <asm/gdt.h>
 #include <asm/idt.h>
 #include <asm/isr.h>
@@ -9,9 +8,9 @@ static inline void enable_intr(void){
 
 void cpu_relax(void);
 
-/* idt.c */
+/* intr/idt.c */
 void init_intr(void);
-/* pic.c */
+/* intr/pic.c */
 void init_irq(void);
 
 void arch_init(void){
