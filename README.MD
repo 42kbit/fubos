@@ -1,7 +1,19 @@
 FUBOS
 
-This shit-kernel posted under cc0, so if you need some code from it, use it as you wish.
+	This shit-kernel posted under CC0 (public domain), so if you need some code from it, use it as you wish,
+	no need to mention or some other shit :/
 
-P.S First commit was on 17-November-2022 not 11-th
+	kernel 	 <- Sources of kernel
+	cfg	 <- Used by build system
+	scripts  <- Scripts to do all sorts of thing
+	
+	LICENSE  <- Linceses, used to distribute this software
+	Makefile <- Top level Makefile, use "make" to build everything.
+			(Works with *NIX systems / GCC compiler)
+	
+	README.MD <- This file
+	
+	For further details, see each dir README.MD
+
 Updated:
-November 27-th 2022
+December 2-nd 2022
