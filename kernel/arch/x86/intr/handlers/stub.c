@@ -3,6 +3,6 @@
 #include <asm/isr.h>
 
 /* Unhandled exceptions go here */
-void stub_handler(isr_regs_t* regs){
+void stub_handler(struct isr_regs* regs){
 	kprintf("Unhandled exception %u\n", regs->intno);
 }

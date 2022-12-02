@@ -2,7 +2,7 @@
 #include <fubos/bitops.h>
 #include <asm/vga.h>
 
-struct vga_node * const vga_text = (vga_node_t*) 0xb8000;
+struct vga_node * const vga_text = (struct vga_node*) 0xb8000;
 off_t vga_text_off = 0;
 
 #define VGA_LAST_LINE_OFF VGA_BUFFER_LEN - VGA_WIDTH

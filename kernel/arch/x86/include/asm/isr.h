@@ -31,14 +31,13 @@ struct isr_regs {
 			       or dummy if hardware does not push errcode*/
 	u32 eip, cs, eflags, useresp, ss; /* pushed by hardware */
 };
-typedef struct isr_regs isr_regs_t;
 
 /* isr.S */
 void isr0	(void);
 
 extern sym __isr_proc_align;
 
-typedef void (*intr_handler_t) (isr_regs_t*);
+typedef void (*intr_handler_t) (struct isr_regs*);
 
 extern intr_handler_t intr_handlers[IDT_NENT];
 
@@ -50,7 +49,7 @@ void reg_handler(u8 intno, intr_handler_t);
  * we can abuse it (isr_addr) to have easy access to needed irq
  */
 
-#define isr_addr(n) (void(*)(isr_regs_t*))((char*)isr0 + n * __symval(__isr_proc_align, size_t))
+#define isr_addr(n) (void(*)(struct isr_regs*))((char*)isr0 + n * __symval(__isr_proc_align, size_t))
 
 #define isr_is_irq(isrn)	(isrn >= IRQ0 && isrn <= IRQ15)
 

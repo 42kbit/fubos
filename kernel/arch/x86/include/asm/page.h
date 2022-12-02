@@ -24,7 +24,6 @@ struct pg_dir_node {
 	   avl		: 4,
 	   adr		: 20;
 } __packed;
-typedef struct pg_dir_node pg_dir_node_t;
 
 struct pg_tbl_node {
 	u32
@@ -40,19 +39,16 @@ struct pg_tbl_node {
 	   avl		: 3,
 	   adr		: 20;
 } __packed;
-typedef struct pg_tbl_node pg_tbl_node_t;
 
 struct pg_tbl {
-	pg_tbl_node_t pt_nodes[PG_TBL_NENT];
+	struct pg_tbl_node pt_nodes[PG_TBL_NENT];
 };
-typedef struct pg_tbl pg_tbl_t;
 
 struct pg_dir {
-	pg_dir_node_t pd_nodes[PG_DIR_NENT];
+	struct pg_dir_node pd_nodes[PG_DIR_NENT];
 };
-typedef struct pg_dir pg_dir_t;
 
-void on_page_fault(isr_regs_t*);
+void on_page_fault(struct isr_regs*);
 
 #endif /* __ASSEMBLY__ */
 #endif /* __H_PAGE_H */

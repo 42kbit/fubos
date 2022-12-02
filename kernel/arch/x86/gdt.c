@@ -8,6 +8,6 @@ struct gdt_entry gdt[GDT_NENT] = {
 };
 
 struct gdt_ptr gdt_ptr = {
-	.size = GDT_NENT * sizeof(gdt_entry_t) - 1,
+	.size = GDT_NENT * sizeof(struct gdt_entry) - 1,
 	.ptr = (u32)&gdt
 };

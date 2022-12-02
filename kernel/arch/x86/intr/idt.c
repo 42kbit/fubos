@@ -10,21 +10,14 @@
 struct idt_entry idt[IDT_NENT];
 
 struct idt_ptr idt_ptr = {
-	.size = IDT_NENT * sizeof(idt_entry_t) - 1,
+	.size = IDT_NENT * sizeof(struct idt_entry) - 1,
 	.ptr = (u32)&idt
 };
 
-intr_handler_t intr_handlers[IDT_NENT];
-
-void idt_load_entry( idt_entry_t* table,
-		u8 where,
-		u32 handler,
-		u16 selector,
-		u8 gt,
-		u8 dpl,
-		u8 present)
+void idt_load_entry(struct idt_entry* table, u8 where, u32 handler,
+		u16 selector, u8 gt, u8 dpl, u8 present)
 {
-	idt_entry_t e = idt_make_entry(handler, selector, gt, dpl, present);
+	struct idt_entry e = idt_make_entry(handler, selector, gt, dpl, present);
 	table[where] = e;
 }
 

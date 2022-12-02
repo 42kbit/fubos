@@ -39,21 +39,19 @@ struct idt_entry {
 	    p		: 1;
 	u16 offset_high;
 } __packed;
-typedef struct idt_entry idt_entry_t;
 
 struct idt_ptr {
 	u16 size;
 	u32 ptr;
 } __packed;
-typedef struct idt_ptr idt_ptr_t;
 
-extern idt_entry_t 	idt[IDT_NENT];
-extern idt_ptr_t	idt_ptr;
+extern struct idt_entry idt[IDT_NENT];
+extern struct idt_ptr	idt_ptr;
 
-void flush_idt (idt_ptr_t*);
+void flush_idt (struct idt_ptr*);
 
 void idt_load_entry ( 
-		idt_entry_t* table,
+		struct idt_entry* table,
 		u8 where,
 		u32 handler,
 		u16 selector,

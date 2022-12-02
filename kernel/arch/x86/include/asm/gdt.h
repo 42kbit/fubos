@@ -73,19 +73,17 @@ struct gdt_entry{
 	   g		: 1;
 	u8 base_high;
 } __packed;
-typedef struct gdt_entry gdt_entry_t;
 
 struct gdt_ptr{
 	u16 size;
 	u32 ptr;
 } __packed;
-typedef struct gdt_ptr gdt_ptr_t;
 
-extern gdt_ptr_t gdt_ptr;
-extern gdt_entry_t gdt[GDT_NENT];
+extern struct gdt_ptr gdt_ptr;
+extern struct gdt_entry gdt[GDT_NENT];
 
 /* seg_reload.S */
-void flush_gdt(gdt_ptr_t*);
+void flush_gdt(struct gdt_ptr*);
 
 #endif /*  __ASSEMBLY__ */
 #endif /* __H_GDT_H */

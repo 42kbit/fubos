@@ -20,7 +20,7 @@ void cpu_die	(void);
 
 u32 ticks_passed = 0;
 
-void timer_callback (isr_regs_t*){
+void timer_callback (struct isr_regs*){
 	/*
 	kprintf("Timer %u\n", ticks_passed++);
 	*/

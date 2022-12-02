@@ -1,6 +1,8 @@
 #include <asm/isr.h>
 #include <asm/pic.h>
 
+intr_handler_t intr_handlers[IDT_NENT];
+
 void stub_handler (struct isr_regs*);
 
 void reg_handler(u8 intno, intr_handler_t handler){

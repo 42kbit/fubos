@@ -13,6 +13,5 @@ struct vga_node {
 	u8 fg : 4,
 	   bg : 4;
 };
-typedef struct vga_node vga_node_t;
 
 #endif /* __H_VGA_H */
