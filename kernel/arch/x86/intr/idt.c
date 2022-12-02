@@ -7,9 +7,9 @@
 #include <asm/isr.h>
 #include <asm/page.h>
 
-idt_entry_t 	idt[IDT_NENT];
+struct idt_entry idt[IDT_NENT];
 
-idt_ptr_t	idt_ptr = {
+struct idt_ptr idt_ptr = {
 	.size = IDT_NENT * sizeof(idt_entry_t) - 1,
 	.ptr = (u32)&idt
 };

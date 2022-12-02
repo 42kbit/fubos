@@ -1,14 +1,14 @@
 #include <asm/isr.h>
 #include <asm/pic.h>
 
-void stub_handler (isr_regs_t*);
+void stub_handler (struct isr_regs*);
 
 void reg_handler(u8 intno, intr_handler_t handler){
 	intr_handlers[intno] = handler;
 }
 
 /* i could do that bullshit in asm but meh...*/
-void isr_handler (isr_regs_t sframe){
+void isr_handler (struct isr_regs sframe){
 	if (isr_is_irq(sframe.intno)){
 		pic_send_eoi(isr_to_irq(sframe.intno));
 	}
