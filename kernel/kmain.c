@@ -38,6 +38,10 @@ void init_timer (u32 freq){
 	outb(0x40, h);
 }
 
+extern sym __conv_mem_start_addr;
+extern sym __conv_mem_len;
+extern sym __conv_mem_end_addr;
+
 void kmain(void){
 	arch_init();
 
@@ -45,6 +49,11 @@ void kmain(void){
 		cpu_die();
 	kprintf("klog initialized successfully\n");
 	kprintf("%%p = %p, %%u = %u, %%s = %s\n", (void*)0xdeadb, 15, "foo, bar!");
+	kprintf("__conv_mem_start = %p\n__conv_mem_len = %p\n__conv_mem_end_start = %p\n",
+			__symval(__conv_mem_start_addr, void*),
+			__symval(__conv_mem_len,   	addr_t),
+			__symval(__conv_mem_end_addr, void*)
+			);
 
 	init_timer(50);
 

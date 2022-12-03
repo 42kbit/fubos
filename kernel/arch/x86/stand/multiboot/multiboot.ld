@@ -1,6 +1,12 @@
 OUTPUT_FORMAT(elf32-i386)
 ENTRY(_start)
 
+/* Memory map defined here.
+ * 	asm/memmap.h
+ */
+
+/* __conv* variables defined in entry.S */
+
 __kernel_load_addr = 1M;
 
 SECTIONS
