@@ -18,4 +18,6 @@ void isr_handler (struct isr_regs sframe){
 	if (handler){
 		handler(&sframe);
 	}
+	if (isr_is_irq(sframe.intno))
+		pic_send_eoi(isr_to_irq(sframe.intno));
 }
