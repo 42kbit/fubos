@@ -1,8 +1,10 @@
+#define __ASSEMBLY__
 #include "multiboot.h"
 
 .section .multiboot
 
-#define MLTB1_FLAGS (MLTB1_PAGING | MLTB1_MEMINFO)
+#define MLTB1_FLAGS\
+	(MLTB1_PAGING | MLTB1_MEMINFO)
 multiboot_header_start:
 
 .long MLTB1_MAGIC
@@ -15,9 +17,9 @@ multiboot_header_end:
 .globl _start
 _start:
 
-.extern kmain
+.extern on_boot
 	cli
-	jmp kmain
+	jmp on_boot
 
 _dead:
 	hlt
