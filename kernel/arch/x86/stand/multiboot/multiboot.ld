@@ -2,22 +2,19 @@ OUTPUT_FORMAT(elf32-i386)
 ENTRY(_start)
 
 /* Memory map defined here.
- * 	asm/memmap.h
- */
+	asm/memmap.h
 
-/* __conv* variables defined in entry.S */
+__conv* variables defined in entry.S
 
-__kernel_load_addr = 1M;
+__conv_mem_start_addr = FREE_MEM_ADDR
+__conv_mem_len = FREE_MEM_LEN
+__conv_mem_end_addr = (__conv_mem_start_addr + __conv_mem_len)
+
+*/
 
 SECTIONS
 {
-	. = __kernel_load_addr;
-
-	.multiboot : {
-		__multiboot_begin = . ;
-		*(.multiboot)
-		__multiboot_end = . ;
-	}
+	. = __conv_mem_start_addr;
 
 	.text BLOCK(4K) : ALIGN(4K) {
 		__text_begin = . ;
@@ -37,6 +34,12 @@ SECTIONS
 	.bss BLOCK(4K) : ALIGN(4K) {*(.bss)}
 	__bss_end = . ;
 
+	. = __conv_mem_end_addr - 64;
+	__multiboot_begin = . ;
+	.multiboot : AT(0x0){ *(.multiboot) }
+	__multiboot_end = . ;
+
+	. = 1M;
 	. = ALIGN(4K);
 	__kheap_begin = . ;
 	. += 64K;

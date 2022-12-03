@@ -4,6 +4,8 @@ OBJS_$(d)	:=	\
 	$(ASMOBJS_$(d))	\
 	$(COBJS_$(d))
 
-LF_$(KBIN)	:=-T $(d)/multiboot.ld
+LF_$(KBIN)	:=\
+		-T $(d)/multiboot.ld\
+		-Map=$(dir $(KBIN))/kmap.map
 
 $(KBIN): $(OBJS_$(d)) $(d)/multiboot.ld

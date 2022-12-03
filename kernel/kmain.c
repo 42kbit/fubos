@@ -42,6 +42,8 @@ extern sym __conv_mem_start_addr;
 extern sym __conv_mem_len;
 extern sym __conv_mem_end_addr;
 
+extern char multiboot_header;
+
 void kmain(void){
 	arch_init();
 
@@ -54,6 +56,7 @@ void kmain(void){
 			__symval(__conv_mem_len,   	addr_t),
 			__symval(__conv_mem_end_addr, void*)
 			);
+	kprintf("kmain: %p, multiboot_header: %p\n", (void*)kmain, (void*)&multiboot_header);
 
 	init_timer(50);
 
