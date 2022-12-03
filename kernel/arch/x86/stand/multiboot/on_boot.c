@@ -2,14 +2,14 @@
 #include <fubos/boot_info.h>
 #include "multiboot.h"
 
-/*
-struct boot_info {
-	void * load_addr;
+#define __MLTB1_FLAGS (MLTB1_PAGING | MLTB1_MEMINFO)
 
-	int argc;
-	const char** argv;
+__section(".multiboot")
+struct multiboot_header multiboot_header = {
+	.magic = MLTB1_MAGIC,
+	.flags = __MLTB1_FLAGS,
+	.checksum = -(__MLTB1_FLAGS + MLTB1_MAGIC)
 };
-*/
 
 /* definition in include/fubos/boot_info.h */
 struct boot_info boot_info;
