@@ -6,4 +6,4 @@ OBJS_$(d)	:=	\
 
 LF_$(KBIN)	:=-T $(d)/multiboot.ld
 
-$(KBIN): $(OBJS_$(d))
+$(KBIN): $(OBJS_$(d)) $(d)/multiboot.ld

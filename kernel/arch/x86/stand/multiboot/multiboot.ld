@@ -6,8 +6,14 @@ __kernel_load_addr = 1M;
 SECTIONS
 {
 	. = __kernel_load_addr;
-	.text BLOCK(4K) : ALIGN(4K) {
+
+	.multiboot : {
+		__multiboot_begin = . ;
 		*(.multiboot)
+		__multiboot_end = . ;
+	}
+
+	.text BLOCK(4K) : ALIGN(4K) {
 		__text_begin = . ;
 		*(.text)
 		__text_end = . ;
