@@ -49,6 +49,9 @@ struct multiboot_header {
 	    depth;
 };
 
+struct multiboot_info {
+};
+
 #endif /* __ASSEMBLY__ */
 
 #endif /* _H_MULTIBOOT_H */
