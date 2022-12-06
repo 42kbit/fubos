@@ -58,6 +58,10 @@ void kmain(void){
 			);
 	kprintf("kmain: %p, multiboot_header: %p\n", (void*)kmain, (void*)&multiboot_header);
 
+	set_ebx(0);
+	set_bh(1);
+	kprintf("ebx: %u\n", get_ebx());
+
 	init_timer(50);
 
 	cpu_relax();

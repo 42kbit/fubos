@@ -4,7 +4,7 @@
 #include <fubos/symbol.h>
 #include <fubos/types.h>
 
-#include <asm/x86>
+#include <asm/x86.h>
 
 #include "multiboot.h"
 
@@ -30,7 +30,6 @@ void cpu_die	(void);
 __noreturn
 void on_boot(void){
 	/* ebx stores address of multiboot_info structure */
-	struct multiboot_info* info = ebx();
 	kmain();
 	cpu_die();
 }

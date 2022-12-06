@@ -21,16 +21,21 @@
 #define __x86_reg_get(x, s, var)\
 	asm volatile("mov" #s " %%" #x ",%0" : "=rm"(var))
 
-/* register getters */
-#define __x86_reg16_get(x, var)\
-	__x86_reg_get(x,w,var)
+#define __make_reg_getter(reg, prefix, type)	\
+	static inline type get_##reg (void){	\
+		type r;				\
+		__x86_reg_get(reg, prefix, r);	\
+		return r;			\
+	}
 
-#define __x86_reg32_get(x, var)\
-	__x86_reg_get(x,l,var)
+#define __make_reg_setter(reg, prefix, type)	\
+	static inline void set_##reg (type r){	\
+		__x86_reg_set(reg, prefix, r);	\
+	}
 
-/* register setters */
-#define __x86_reg16_set(x, var)\
-	__x86_reg_set(x,w,var)
+#define __make_reg_all(reg, prefix, type)	\
+	__make_reg_getter(reg, prefix, type);	\
+	__make_reg_setter(reg, prefix, type)
 
 /* 
  * 	Source
@@ -46,65 +51,33 @@ static inline void outb (u16 port, u8 value){
     asm volatile("outb %0, %1" :: "r"(value), "r"(port));
 }
 
-static inline u16 ds(void)
-{
-	u16 seg;
-	__x86_reg16_get(ds,seg);
-	return seg;
-}
+__make_reg_all(eax, l, u32);
+__make_reg_all(ebx, l, u32);
+__make_reg_all(ecx, l, u32);
+__make_reg_all(edx, l, u32);
 
-static inline void set_ds(u16 seg)
-{
-	__x86_reg16_set(ds,seg);
-}
+__make_reg_all(ax, w, u16);
+__make_reg_all(bx, w, u16);
+__make_reg_all(cx, w, u16);
+__make_reg_all(dx, w, u16);
 
-static inline u16 fs(void)
-{
-	u16 seg;
-	__x86_reg16_get(fs,seg);
-	return seg;
-}
+__make_reg_all(al, b, u8);
+__make_reg_all(ah, b, u8);
+__make_reg_all(bl, b, u8);
+__make_reg_all(bh, b, u8);
+__make_reg_all(cl, b, u8);
+__make_reg_all(ch, b, u8);
+__make_reg_all(dl, b, u8);
+__make_reg_all(dh, b, u8);
 
-static inline void set_fs(u16 seg)
-{
-	__x86_reg16_set(fs,seg);
-}
+__make_reg_all(ds, w, u16);
+__make_reg_all(es, w, u16);
+__make_reg_all(fs, w, u16);
+__make_reg_all(gs, w, u16);
+__make_reg_all(ss, w, u16);
 
-static inline u16 es(void)
-{
-	u16 seg;
-	__x86_reg16_get(es,seg);
-	return seg;
-}
-
-static inline void set_es(u16 seg)
-{
-	__x86_reg16_set(es,seg);
-}
-
-static inline u16 gs(void)
-{
-	u16 seg;
-	__x86_reg16_get(gs,seg);
-	return seg;
-}
-
-static inline void set_gs(u16 seg)
-{
-	__x86_reg16_set(gs,seg);
-}
-
-static inline u32 cr0(){
-	u32 seg;
-	__x86_reg32_get(cr0, seg);
-	return seg;
-}
-
-static inline u32 cr4(){
-	u32 seg;
-	__x86_reg32_get(cr4, seg);
-	return seg;
-}
+__make_reg_all(cr0, l, u32);
+__make_reg_all(cr4, l, u32);
 
 #endif /* __ASSEMBLY__ */
 #endif /* __H_X86_H */
