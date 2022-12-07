@@ -30,6 +30,8 @@ void cpu_die	(void);
 __noreturn
 void on_boot(void){
 	/* ebx stores address of multiboot_info structure */
+	struct multiboot_info* mboot_info =
+		(struct multiboot_info*) get_ebx();
 	kmain();
 	cpu_die();
 }

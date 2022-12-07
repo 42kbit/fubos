@@ -11,6 +11,15 @@ static inline void reverse_inplace(char * str, size_t len){
 	}
 }
 
+static inline ptrdiff_t __psize (addr_t num){
+	ptrdiff_t len = 0;
+	while (num != 0){
+		len++;
+		num /= 10;
+	}
+	return len;
+}
+
 static inline ptrdiff_t utoa (u32 n, char * buf, u8 base, const char* digits){
 	char * buf_iter = buf;
 	i32 digit;
@@ -35,31 +44,39 @@ int kvsnprintf	(char * buf, size_t size, const char * fmt, va_list args)
 	static const char * digits = "0123456789abcdef";
 
 	while ((c = *(fmt_ptr++)) && size-- > 0){
-		if (c == '%'){
-			switch (c = *(fmt_ptr++)){
-				case '%':
-					*(buf_ptr++) = c;
-					break;
-				case 'u':
-					diff = utoa(va_arg(args, u32), buf_ptr, 10, digits);
-					buf_ptr += diff;
-					break;
-				case 'p':
-					__strncat_len(buf_ptr, "0x", 2, NULL, (size_t*)&diff);
-					buf_ptr += diff;
-					diff = utoa(va_arg(args, addr_t), buf_ptr, 16, digits);
-					buf_ptr += diff;
-					break;
-				case 's':
-					__strncat_len(buf_ptr, va_arg(args, const char*), INT_MAX, NULL, (size_t*)&diff);
-					buf_ptr += diff;
-					break;
-				default:
-					break;
-			}
-		}
-		else {
+		if (c != '%'){
 			*(buf_ptr++) = c;
+			continue;
+		}
+
+		switch (c = *(fmt_ptr++)){
+			case '%':
+				*(buf_ptr++) = c;
+				break;
+
+			case 'u':
+				diff = utoa(va_arg(args, u32), buf_ptr, 10, digits);
+				buf_ptr += diff;
+				break;
+			case 'p':
+			case 'h':
+				addr_t addr = va_arg(args, addr_t);
+				__strncat_len(buf_ptr, "0x", 2, NULL, (size_t*)&diff);
+				buf_ptr += diff;
+				if (c == 'p'){
+					diff = __psize(addr) - 1;
+					memset (buf_ptr, '0', sizeof(addr_t)*2 - diff);
+					buf_ptr += sizeof(addr_t)*2 - diff;
+				}
+				diff = utoa(addr, buf_ptr, 16, digits);
+				buf_ptr += diff;
+				break;
+			case 's':
+				__strncat_len(buf_ptr, va_arg(args, const char*), INT_MAX, NULL, (size_t*)&diff);
+				buf_ptr += diff;
+				break;
+			default:
+				break;
 		}
 	}
 	return buf_ptr - buf;
