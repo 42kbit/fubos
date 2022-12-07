@@ -16,4 +16,7 @@
 #define __weak\
 	__atr(weak)
 
+#define __aligned(x)\
+	__atr(__aligned__(x))
+
 #endif /* __H_FUBOS_SECTIONS_H */

@@ -50,6 +50,34 @@ struct multiboot_header {
 };
 
 struct multiboot_info {
+u32	flags,
+	mem_lower,
+	mem_upper,
+	boot_device,
+	cmdline,
+	mods_count,
+	mods_addr,
+	syms,
+	mmap_length,
+	mmap_addr,
+	drives_length,
+	drives_addr,
+	config_table,
+	boot_loader_name,
+	apm_table,
+	vbe_control_info,
+	vbe_mode_info,
+	vbe_mode,
+	vbe_interface_seg,
+	vbe_interface_off,
+	vbe_interface_len,
+	framebuffer_addr,
+	framebuffer_pitch,
+	framebuffer_width,
+	framebuffer_height,
+	framebuffer_bpp,
+	framebuffer_type,
+	color_info;
 };
 
 #endif /* __ASSEMBLY__ */

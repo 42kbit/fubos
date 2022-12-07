@@ -10,7 +10,7 @@
 
 #define __MLTB1_FLAGS (MLTB1_PAGING | MLTB1_MEMINFO)
 
-__section(".multiboot")
+__section(".multiboot") __aligned(16)
 struct multiboot_header multiboot_header = {
 	.magic = 	MLTB1_MAGIC,
 	.flags = 	__MLTB1_FLAGS,
