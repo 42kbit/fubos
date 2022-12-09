@@ -6,15 +6,22 @@
 
 #include <asm/x86.h>
 
-#include "multiboot.h"
+#include "multiboot2.h"
 
-#define __MLTB1_FLAGS (MLTB1_PAGING | MLTB1_MEMINFO)
+#define __MLTB2_CHECKSUM\
+	(MLTB2_MAGIC + MLTB2_ARCH_X86 + sizeof(struct multiboot2_header))
 
-__section(".multiboot") __aligned(16)
-struct multiboot_header multiboot_header = {
-	.magic = 	MLTB1_MAGIC,
-	.flags = 	__MLTB1_FLAGS,
-	.checksum = 	-(__MLTB1_FLAGS + MLTB1_MAGIC),
+__section(".multiboot2") __aligned(16)
+struct multiboot2_header multiboot2_header = {
+	.magic 		= MLTB2_MAGIC,
+	.architecture 	= MLTB2_ARCH_X86,
+	.header_length	= sizeof(struct multiboot2_header),
+	.checksum	= -__MLTB2_CHECKSUM,
+	.end_tag	= {
+		.type =  0,
+		.flags = 0,
+		.size =  8
+	}
 };
 
 /* definition in include/fubos/boot_info.h */
@@ -30,8 +37,6 @@ void cpu_die	(void);
 __noreturn
 void on_boot(void){
 	/* ebx stores address of multiboot_info structure */
-	struct multiboot_info* mboot_info =
-		(struct multiboot_info*) get_ebx();
 	kmain();
 	cpu_die();
 }

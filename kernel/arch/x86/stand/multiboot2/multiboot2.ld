@@ -36,7 +36,7 @@ SECTIONS
 
 	. = __conv_mem_end_addr - 64;
 	__multiboot_begin = . ;
-	.multiboot : AT(0x0){ *(.multiboot) }
+	.multiboot2 : AT(0x0){ *(.multiboot2) }
 	__multiboot_end = . ;
 
 	. = 1M;
