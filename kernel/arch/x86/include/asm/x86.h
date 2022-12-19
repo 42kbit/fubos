@@ -77,6 +77,9 @@ __make_reg_all(gs, w, u16);
 __make_reg_all(ss, w, u16);
 
 __make_reg_all(cr0, l, u32);
+__make_reg_all(cr1, l, u32);
+__make_reg_all(cr2, l, u32);
+__make_reg_all(cr3, l, u32);
 __make_reg_all(cr4, l, u32);
 
 #endif /* __ASSEMBLY__ */

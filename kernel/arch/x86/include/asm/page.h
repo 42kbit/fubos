@@ -49,6 +49,7 @@ struct pg_dir {
 
 /* sets PG bit on PSW */
 void enable_paging (void);
+
 /* sets cr3 */
 void set_page_dir (struct pg_dir* new_dir);
 

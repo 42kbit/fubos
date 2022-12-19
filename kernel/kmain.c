@@ -103,7 +103,7 @@ void kmain(void){
 		kpg_dir.pd_nodes[i] = dir_node_sample;
 	}
 	kpg_dir.pd_nodes[0].present = 1;
-	kpg_dir.pd_nodes[0].adr = (addr_t)&kpg_tbl >> 12;
+	kpg_dir.pd_nodes[0].adr = bitcut((addr_t)&kpg_tbl, 12, 20);
 
 	set_page_dir (&kpg_dir);
 	enable_paging ();
