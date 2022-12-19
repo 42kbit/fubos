@@ -3,7 +3,6 @@
 
 #include <asm/isr.h>
 
-#define PAGE_SIZE 4096
 #define PG_TBL_NENT 1024
 #define PG_DIR_NENT 1024
 
@@ -48,7 +47,13 @@ struct pg_dir {
 	struct pg_dir_node pd_nodes[PG_DIR_NENT];
 };
 
-void on_page_fault(struct isr_regs*);
+/* sets PG bit on PSW */
+void enable_paging (void);
+/* sets cr3 */
+void set_page_dir (struct pg_dir* new_dir);
+
+/* kernel/intr/handlers/page_fault.c */
+void on_page_fault (struct isr_regs*);
 
 #endif /* __ASSEMBLY__ */
 #endif /* __H_PAGE_H */
