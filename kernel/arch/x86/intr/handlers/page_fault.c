@@ -1,6 +1,7 @@
 #include <asm/isr.h>
 #include <asm/x86.h>
 #include <fubos/klog.h>
+#include <fubos/panic.h>
 
 /* ../stub.c */
 void stub_handler(struct isr_regs* isr_regs);

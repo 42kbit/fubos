@@ -31,6 +31,7 @@ void cpu_relax(void) {
 		asm volatile("hlt");
 }
 
+/* fubos/panic.h */
 void cpu_die(void){
 	while (1){
 		asm volatile ("cli; hlt;");

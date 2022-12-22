@@ -34,7 +34,7 @@
 #include <fubos/compiler_attributes.h>
 #include <fubos/ints.h>
 
-#define gdt_make_entry(_base, _limit, _access, _flags)\
+#define gdt_make_node(_base, _limit, _access, _flags)\
 	{\
 		.limit_low 	= bitcut(_limit, 0, 16),\
 		.base_low 	= bitcut(_base, 0, 16),\
@@ -54,7 +54,7 @@
 		.base_high	= bitcut(_base, 24, 8)\
 	}
 
-struct gdt_entry{
+struct gdt_node{
 	u16 limit_low;
 	u16 base_low;
 	u8 base_mid;
@@ -80,7 +80,7 @@ struct gdt_ptr{
 } __packed;
 
 extern struct gdt_ptr gdt_ptr;
-extern struct gdt_entry gdt[GDT_NENT];
+extern struct gdt_node gdt[GDT_NENT];
 
 /* seg_reload.S */
 void flush_gdt(struct gdt_ptr*);
