@@ -2,15 +2,25 @@
 #define __H_GDT_H
 
 #include <fubos/bitops.h>
+#include <fubos/assert.h>
 
 /* dummy, kernel code/data, user code/data */
 #define GDT_NENT 5
 
-#define GDT_NULL  0x0
-#define GDT_KCODE 0x08
-#define GDT_KDATA 0x10
-#define GDT_UCODE 0x18
-#define GDT_UDATA 0x20
+#define GDT_SZENT 8
+#define GDT_IDX_NULL 0
+
+#define GDT_IDX_NULL  0
+#define GDT_IDX_KCODE 1
+#define GDT_IDX_KDATA 2
+#define GDT_IDX_UCODE 3
+#define GDT_IDX_UDATA 4
+
+#define GDT_NULL  (GDT_IDX_NULL  * GDT_SZENT)
+#define GDT_KCODE (GDT_IDX_KCODE * GDT_SZENT)
+#define GDT_KDATA (GDT_IDX_KDATA * GDT_SZENT)
+#define GDT_UCODE (GDT_IDX_UCODE * GDT_SZENT)
+#define GDT_UDATA (GDT_IDX_UDATA * GDT_SZENT)
 
 #define GDT_PRESENT 	(bit(7))
 /* 5 and 6 bits are rights */
@@ -73,6 +83,8 @@ struct gdt_node{
 	   g		: 1;
 	u8 base_high;
 } __packed;
+
+__ASSERT(GDT_SZENT == sizeof(struct gdt_node));
 
 struct gdt_ptr{
 	u16 size;
