@@ -108,6 +108,8 @@ void kmain(void){
 	set_page_dir (&kpg_dir);
 	enable_paging ();
 
+	kprintf ("cr3: %h\n", get_cr3());
+
 	/* does page fault */
 	* (char*)mib(4) = 5;
 
