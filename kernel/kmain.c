@@ -39,11 +39,8 @@ void init_timer (u32 freq){
 	outb(0x40, h);
 }
 
-extern sym __conv_mem_start_addr;
-extern sym __conv_mem_len;
-extern sym __conv_mem_end_addr;
-
-extern char multiboot2_header;
+extern sym __phys_load_addr;
+extern sym __phys_load_len;
 
 void kmain(void){
 	arch_init();
@@ -52,17 +49,17 @@ void kmain(void){
 		cpu_die();
 	kprintf("klog initialized successfully\n");
 	kprintf("%%p = %p, %%u = %u, %%s = %s\n", (void*)0xdeadb, 15, "foo, bar!");
-	kprintf("__conv_mem_start = %p\n__conv_mem_len = %p\n__conv_mem_end_start = %p\n",
-			__symval(__conv_mem_start_addr, void*),
-			__symval(__conv_mem_len,   	addr_t),
-			__symval(__conv_mem_end_addr, void*)
+	kprintf("__phys_load_addr = %p\n__phys_load_len = %p\n",
+			__symval(__phys_load_addr, void*),
+			__symval(__phys_load_len,  addr_t)
 			);
-	kprintf("kmain: %p, multiboot_header: %p\n", (void*)kmain, (void*)&multiboot2_header);
+	kprintf("kmain: %p\n", (void*)kmain);
 
 	set_ebx(0);
 	set_bh(1);
 	kprintf("ebx: %u\n", get_ebx());
 
+	/*
 	kprintf("Paging test\n");
 	struct pg_dir_node dir_node_sample = {
 		.present 	= 0,
@@ -90,7 +87,7 @@ void kmain(void){
 		.adr		= 0
 	};
 
-	/* maps lower 4 mib of memory to itself. */
+	// maps lower 4 mib of memory to itself.
 	
 	static struct pg_tbl kpg_tbl __aligned (PAGE_SIZE);
 	static struct pg_dir kpg_dir __aligned (PAGE_SIZE);
@@ -110,8 +107,9 @@ void kmain(void){
 
 	kprintf ("cr3: %h\n", get_cr3());
 
-	/* does page fault */
+	// does page fault
 	* (char*)mib(4) = 5;
+	*/
 
 	init_timer(50);
 

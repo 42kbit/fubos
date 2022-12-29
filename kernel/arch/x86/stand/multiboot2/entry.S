@@ -1,23 +1,33 @@
+#define __ASSEMBLY__
 #include <asm/memmap.h>
-
-/* define memory symbols for multiboot.ld */
-
-.globl __conv_mem_start_addr
-.globl __conv_mem_len 
-.globl __conv_mem_end_addr
-
-__conv_mem_start_addr = FREE_MEM_ADDR
-__conv_mem_len = FREE_MEM_LEN
-__conv_mem_end_addr = (__conv_mem_start_addr + __conv_mem_len)
+#include <asm/page.h>
 
 .extern on_boot
+.extern kmain
+.extern cpu_die
+.extern gdt
 
+/* page directory */
+.extern __kpd
+/* first page table (maps 4 MiB)*/
+.extern __kpt
+
+/*
+code is loaded to LOAD_PHYS_ADDR,
+We must enable paging, so that
+
+   VIRTUAL	  ->	PHYSICAL
+   0xc0000000     ->	0x00000000
+
+Kernel is loaded on physical address PHYS_LOAD_ADDR by bootloader
+	(see asm/memmap.h)
+*/
 .section .text
 .globl _start
 _start:
 	cli
-	jmp on_boot
-
-_dead:
+	/* cleanup page directory */
 	hlt
-	jmp _dead
+	jmp kmain
+	/* die if kmain returns */
+	jmp cpu_die

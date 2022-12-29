@@ -23,20 +23,3 @@ struct multiboot2_header multiboot2_header = {
 		.size =  8
 	}
 };
-
-/* definition in include/fubos/boot_info.h */
-struct boot_info boot_info;
-
-/* kernel/kmain.c */
-void kmain	(void);
-
-/* kernel/kmain.c */
-__noreturn
-void cpu_die	(void);
-
-__noreturn
-void on_boot(void){
-	/* ebx stores address of multiboot_info structure */
-	kmain();
-	cpu_die();
-}

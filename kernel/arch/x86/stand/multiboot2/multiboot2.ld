@@ -1,22 +1,19 @@
+#undef i386
 OUTPUT_FORMAT(elf32-i386)
 ENTRY(_start)
 
-/* Memory map defined here.
-	asm/memmap.h
+#include <asm/memmap.h>
+#include <asm/page.h>
 
-__conv* variables defined in entry.S
-
-__conv_mem_start_addr = FREE_MEM_ADDR
-__conv_mem_len = FREE_MEM_LEN
-__conv_mem_end_addr = (__conv_mem_start_addr + __conv_mem_len)
-
-*/
+__phys_load_addr = PHYS_LOAD_ADDR;
+__phys_load_len  = 0xffffffff - PHYS_LOAD_ADDR + 1;
 
 SECTIONS
 {
-	. = __conv_mem_start_addr;
+	/* entry.S */
+	. = VIRT_LOAD_ADDR;
 
-	.text BLOCK(4K) : ALIGN(4K) {
+	.text : AT(PHYS_LOAD_ADDR) {
 		__text_begin = . ;
 		*(.text)
 		__text_end = . ;
@@ -34,14 +31,16 @@ SECTIONS
 	.bss BLOCK(4K) : ALIGN(4K) {*(.bss)}
 	__bss_end = . ;
 
-	. = __conv_mem_end_addr - 64;
-	__multiboot_begin = . ;
-	.multiboot2 : AT(0x0){ *(.multiboot2) }
-	__multiboot_end = . ;
-
-	. = 1M;
 	. = ALIGN(4K);
 	__kheap_begin = . ;
 	. += 64K;
 	__kheap_end = . ;
+	/* entry.S */
+	. = ALIGN(4K);
+	__kpd = . ;
+	. = ALIGN(4K);
+	__kpt = . ;
+	. = ALIGN(4K);
+	. += 64K;
+	__kstack = . ;
 }

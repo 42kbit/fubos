@@ -1,10 +1,12 @@
 #ifndef __H_PAGE_H
 #define __H_PAGE_H
 
-#include <asm/isr.h>
-
 #define PG_TBL_NENT 1024
 #define PG_DIR_NENT 1024
+
+#ifndef __GNULD__
+
+#include <asm/isr.h>
 
 #ifndef __ASSEMBLY__
 
@@ -57,4 +59,6 @@ void set_page_dir (struct pg_dir* new_dir);
 void on_page_fault (struct isr_regs*);
 
 #endif /* __ASSEMBLY__ */
+#endif /* __GNULD__ */
+
 #endif /* __H_PAGE_H */
