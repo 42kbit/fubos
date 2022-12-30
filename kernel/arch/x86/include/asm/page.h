@@ -4,6 +4,9 @@
 #define PG_TBL_NENT 1024
 #define PG_DIR_NENT 1024
 
+#define PAGE_SIZE  4096
+#define PAGE_SHIFT 12
+
 #ifndef __GNULD__
 
 #include <asm/isr.h>

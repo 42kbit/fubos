@@ -64,9 +64,11 @@ int kvsnprintf	(char * buf, size_t size, const char * fmt, va_list args)
 				__strncat_len(buf_ptr, "0x", 2, NULL, (size_t*)&diff);
 				buf_ptr += diff;
 				if (c == 'p'){
+					/*
 					diff = __psize(addr) - 1;
 					memset (buf_ptr, '0', sizeof(addr_t)*2 - diff);
 					buf_ptr += sizeof(addr_t)*2 - diff;
+					*/
 				}
 				diff = utoa(addr, buf_ptr, 16, digits);
 				buf_ptr += diff;

@@ -12,7 +12,7 @@
 #include <fubos/limits.h>
 #include <fubos/errno.h>
 
-#define KPRINTF_MAX_LEN 0xff
+#define KPRINTF_MAX_LEN 0x7ff
 
 extern char * klog_buffer;
 extern off_t klog_buffer_off;

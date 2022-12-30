@@ -10,37 +10,52 @@ __phys_load_len  = 0xffffffff - PHYS_LOAD_ADDR + 1;
 
 SECTIONS
 {
+	. = PHYS_LOAD_ADDR;
 	/* entry.S */
-	. = VIRT_LOAD_ADDR;
-
-	.text : AT(PHYS_LOAD_ADDR) {
-		__text_begin = . ;
-		*(.text)
-		__text_end = . ;
+	.boottext : {
+		*(.boottext)
 	}
 
+	.bootdata : {
+		*(.bootdata)
+	}
+
+	. += PAGE_OFFSET;
+	__text_begin = . ;
+	.text ALIGN(PAGE_SIZE) : AT(ADDR(.text) - PAGE_OFFSET) {
+		*(.text)
+	}
+	__text_end = . ;
+
 	__data_begin = . ;
-	.data BLOCK(4K) : ALIGN(4K) {*(.data)}
+	.data ALIGN(PAGE_SIZE) : AT(ADDR(.data) - PAGE_OFFSET) {
+		*(.data)
+	}
 	__data_end = . ;
 
 	__rodata_begin = . ;
-	.rodata BLOCK(4K) : ALIGN(4K) {*(.rodata)}
+	.rodata ALIGN(PAGE_SIZE) : AT(ADDR(.rodata) - PAGE_OFFSET) {
+		*(.rodata)
+	}
 	__rodata_end = . ;
 
 	__bss_begin = . ;
-	.bss BLOCK(4K) : ALIGN(4K) {*(.bss)}
+	.bss ALIGN(PAGE_SIZE) : AT(ADDR(.bss) - PAGE_OFFSET) {
+		*(.bss)
+	}
 	__bss_end = . ;
 
-	. = ALIGN(4K);
+	. = ALIGN(PAGE_SIZE);
 	__kheap_begin = . ;
 	. += 64K;
 	__kheap_end = . ;
 	/* entry.S */
-	. = ALIGN(4K);
+	. = ALIGN(PAGE_SIZE);
 	__kpd = . ;
-	. = ALIGN(4K);
+	. += PAGE_SIZE;
 	__kpt = . ;
-	. = ALIGN(4K);
+	. += PAGE_SIZE;
+	__kstack_begin = . ;
 	. += 64K;
-	__kstack = . ;
+	__kstack_end = . ;
 }

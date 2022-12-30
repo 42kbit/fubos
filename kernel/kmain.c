@@ -47,6 +47,7 @@ void kmain(void){
 
 	if (init_klog_buffer() < 0)
 		cpu_die();
+
 	kprintf("klog initialized successfully\n");
 	kprintf("%%p = %p, %%u = %u, %%s = %s\n", (void*)0xdeadb, 15, "foo, bar!");
 	kprintf("__phys_load_addr = %p\n__phys_load_len = %p\n",
