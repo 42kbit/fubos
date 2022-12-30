@@ -15,7 +15,7 @@ static inline ptrdiff_t __psize (addr_t num){
 	ptrdiff_t len = 0;
 	while (num != 0){
 		len++;
-		num /= 10;
+		num /= 16;
 	}
 	return len;
 }
@@ -64,11 +64,9 @@ int kvsnprintf	(char * buf, size_t size, const char * fmt, va_list args)
 				__strncat_len(buf_ptr, "0x", 2, NULL, (size_t*)&diff);
 				buf_ptr += diff;
 				if (c == 'p'){
-					/*
-					diff = __psize(addr) - 1;
-					memset (buf_ptr, '0', sizeof(addr_t)*2 - diff);
-					buf_ptr += sizeof(addr_t)*2 - diff;
-					*/
+					int padding = (sizeof(void*)*2) - __psize(addr);
+					memset (buf_ptr, '0', padding);
+					buf_ptr += padding;
 				}
 				diff = utoa(addr, buf_ptr, 16, digits);
 				buf_ptr += diff;
