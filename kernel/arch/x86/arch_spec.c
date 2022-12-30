@@ -14,8 +14,6 @@ void init_intr(void);
 void init_irq(void);
 
 void arch_init(void){
-	flush_gdt(&gdt_ptr);
-
 #ifdef CONFIG_LOG_INPLACE
 void __init_vga(void);
 	__init_vga();

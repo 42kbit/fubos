@@ -42,6 +42,8 @@ void init_timer (u32 freq){
 extern sym __phys_load_addr;
 extern sym __phys_load_len;
 
+extern sym __kpd;
+
 void kmain(void){
 	arch_init();
 
@@ -54,64 +56,11 @@ void kmain(void){
 			__symval(__phys_load_addr, void*),
 			__symval(__phys_load_len,  addr_t)
 			);
-	kprintf("kmain: %p\n", (void*)kmain);
+	kprintf("virtual kmain: %p\nphys kmain:%p\n", (void*)kmain, virt_to_phys(kmain));
 
 	set_ebx(0);
 	set_bh(1);
 	kprintf("ebx: %u\n", get_ebx());
-
-	/*
-	kprintf("Paging test\n");
-	struct pg_dir_node dir_node_sample = {
-		.present 	= 0,
-		.rd_wr 		= 1,
-		.usr_spw 	= 1,
-		.pwt 		= 0,
-		.cache_off 	= 0,
-		.acc		= 1,
-		.avl0		= 0,
-		.page_size	= 0,
-		.avl		= 0,
-		.adr		= 0
-	};
-	struct pg_tbl_node tbl_node_sample = {
-		.present 	= 1,
-		.rd_wr 		= 1,
-		.usr_spw 	= 0,
-		.pwt 		= 0,
-		.cache_off 	= 0,
-		.acc		= 0,
-		.dirty		= 0,
-		.pat		= 0,
-		.global		= 0,
-		.avl		= 0,
-		.adr		= 0
-	};
-
-	// maps lower 4 mib of memory to itself.
-	
-	static struct pg_tbl kpg_tbl __aligned (PAGE_SIZE);
-	static struct pg_dir kpg_dir __aligned (PAGE_SIZE);
-
-	for (int i = 0; i < PG_TBL_NENT; i++){
-		kpg_tbl.pt_nodes[i] = tbl_node_sample;
-		kpg_tbl.pt_nodes[i].adr = i;
-	}
-	for (int i = 0; i < PG_DIR_NENT; i++){
-		kpg_dir.pd_nodes[i] = dir_node_sample;
-	}
-	kpg_dir.pd_nodes[0].present = 1;
-	kpg_dir.pd_nodes[0].adr = bitcut((addr_t)&kpg_tbl, 12, 20);
-
-	set_page_dir (&kpg_dir);
-	enable_paging ();
-
-	kprintf ("cr3: %h\n", get_cr3());
-
-	// does page fault
-	* (char*)mib(4) = 5;
-	*/
-
 	init_timer(50);
 
 	cpu_relax();

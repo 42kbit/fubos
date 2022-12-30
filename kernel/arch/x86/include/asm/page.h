@@ -14,6 +14,7 @@
 #ifndef __ASSEMBLY__
 
 #include <fubos/compiler_attributes.h>
+#include <asm/memmap.h>
 
 struct pg_dir_node {
 	u32
@@ -51,6 +52,10 @@ struct pg_tbl {
 struct pg_dir {
 	struct pg_dir_node pd_nodes[PG_DIR_NENT];
 };
+
+static inline void* virt_to_phys(volatile void * addr){
+	return __pa(addr);
+}
 
 /* sets PG bit on PSW */
 void enable_paging (void);

@@ -45,7 +45,7 @@
 
 #	include <fubos/types.h>
 #	undef __pa
-#	define __pa(x) ((addr_t)x - PAGE_OFFSET)
+#	define __pa(x) ((void*)((char*)(x) - PAGE_OFFSET))
 
 #endif /* __ASSEMBLY__ */
 #endif /* __GNULD__ */
