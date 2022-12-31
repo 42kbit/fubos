@@ -4,7 +4,9 @@
 #include <fubos/bitops.h>
 #include <fubos/assert.h>
 
-/* dummy, kernel code/data, user code/data */
+/*
+ * dummy, kernel code/data, user code/data
+ * */
 #define GDT_NENT 5
 
 #define GDT_SZENT 8

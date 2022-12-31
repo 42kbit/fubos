@@ -1,20 +1,34 @@
 #include <asm/gdt.h>
 
-/* Using flat memory model */
+/*
+ * Using flat memory model
+ */
 
 #define GDT_32_ACCESS\
 	(GDT_GRANULARITY | GDT_PROTMODE)
 
-/* 0x9a */
+/* 
+ * 0x9a
+ */
+
 #define KCODE_FLAGS\
 	(GDT_READABLE | GDT_CODE | GDT_CORD | GDT_PRIV(0) | GDT_PRESENT)
-/* 0x92 */
+/* 
+ * 0x92 
+ */
+
 #define KDATA_FLAGS\
 	(GDT_WRITEABLE | GDT_CORD | GDT_PRIV(0) | GDT_PRESENT)
-/* 0xfa */
+/*
+ * 0xfa
+ */
+
 #define UCODE_FLAGS\
 	(GDT_READABLE | GDT_CODE | GDT_CORD | GDT_PRIV(3) | GDT_PRESENT)
-/* 0xf2 */
+/* 
+ * 0xf2
+ */
+
 #define UDATA_FLAGS\
 	(GDT_WRITEABLE | GDT_CORD | GDT_PRIV(3) | GDT_PRESENT)
 

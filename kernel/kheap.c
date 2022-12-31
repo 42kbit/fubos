@@ -26,5 +26,7 @@ void * kmalloc_aligned (size_t n, u32 alignment){
 }
 
 void kfree (void *){
-/* not implemented yet, so does nothing */
+/* 
+ * not implemented yet, so does nothing 
+ */
 }

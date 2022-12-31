@@ -8,9 +8,16 @@ static inline void enable_intr(void){
 
 void cpu_relax(void);
 
-/* intr/idt.c */
+/* 
+ * intr/idt.c
+ */
+
 void init_intr(void);
-/* intr/pic.c */
+
+/*
+ * intr/pic.c 
+ */
+
 void init_irq(void);
 
 void arch_init(void){
@@ -29,7 +36,10 @@ void cpu_relax(void) {
 		asm volatile("hlt");
 }
 
-/* fubos/panic.h */
+/*
+ * fubos/panic.h
+ */
+
 void cpu_die(void){
 	while (1){
 		asm volatile ("cli; hlt;");

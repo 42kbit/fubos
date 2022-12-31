@@ -1,4 +1,6 @@
-/* on this line was a ton of cringe, so i removed it */
+/* 
+ * on this line was a ton of cringe, so i removed it
+ */
 
 #include <asm/gdt.h>
 #include <asm/x86.h>
@@ -10,7 +12,10 @@
 
 #include <fubos/klog.h>
 
-/* not arch independent code will be fixed later */
+/* 
+ * not arch independent code will be fixed later
+ */
+
 void arch_init	(void);
 void cpu_relax	(void);
 void cpu_die	(void);
@@ -22,9 +27,9 @@ void cpu_die	(void);
 u32 ticks_passed = 0;
 
 void timer_callback (struct isr_regs*){
-	/*
-	kprintf("Timer %u\n", ticks_passed++);
-	*/
+/*
+ * kprintf("Timer %u\n", ticks_passed++);
+ */
 }
 
 void init_timer (u32 freq){

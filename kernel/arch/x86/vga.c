@@ -15,7 +15,9 @@ static inline void vga_scroll(){
 	for (int i = VGA_LAST_LINE_OFF; i < VGA_BUFFER_LEN; i++){
 		vga_text[i].c = ' ';
 	}
-	/* set offset to last line */
+/* 
+ * set offset to last line
+ */
 	vga_text_off = VGA_LAST_LINE_OFF;
 }
 

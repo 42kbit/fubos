@@ -17,6 +17,7 @@
  * page directory
  */
 .extern __kpd
+
 /*
  * first page table (maps 4 MiB)
  */
@@ -31,7 +32,7 @@
  * 
  * Kernel is loaded on physical address PHYS_LOAD_ADDR by bootloader
  * 	(see asm/memmap.h)
-*/
+ */
 
 #define addr_to_4mib_chunk(x) ((x) / mib(4))
 
@@ -40,33 +41,40 @@
 .globl _start
 _start:
 	cli
-	/* memset(page_directory, 0, PAGE_SIZE) */
+
+/* 
+ * memset(page_directory, 0, PAGE_SIZE)
+ */
 	cld
 	xorl %eax, %eax
 	movl $PAGE_SIZE, %ecx
 	movl $__pa(__kpd), %edi
 	rep stosl
 
-	/* memset(page_table, 0, PAGE_SIZE) */
+/*
+ * memset(page_table, 0, PAGE_SIZE)
+ */
 	movl $PAGE_SIZE, %ecx
 	movl $__pa(__kpt), %edi
 	rep stosl
 
-	/* setup page directory, that page_directory[0] and page_directory[768] points to page_table */
+/*
+ * setup page directory, that page_directory[0] and page_directory[768] points to page_table
+ */
+
 	movl $__pa(__kpt), %eax
 	andl $~bitmask(PAGE_SHIFT), %eax
 	movb $0b00100111, %al
-
 /* 
  * page_directory[0] = page_table
  */
-	movl %eax, __pa(__kpd) + addr_to_4mib_chunk(PHYS_LOAD_ADDR)*4
 
+	movl %eax, __pa(__kpd) + addr_to_4mib_chunk(PHYS_LOAD_ADDR)*4
 /*
  * page_directory[768] = page_table
  */
-	movl %eax, __pa(__kpd) + addr_to_4mib_chunk(VIRT_LOAD_ADDR)*4
 
+	movl %eax, __pa(__kpd) + addr_to_4mib_chunk(VIRT_LOAD_ADDR)*4
 /* 
  * init page_table
  */
@@ -102,7 +110,6 @@ ptbl_init_lpend:
 /*
  * set gdt to KNOWN value
  */
-
 	lgdt (gdt_ptr)
 	movw $GDT_KDATA, %ax
 	movw %ax, %ds
