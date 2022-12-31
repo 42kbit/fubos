@@ -57,13 +57,19 @@ static inline void* virt_to_phys(volatile void * addr){
 	return __pa(addr);
 }
 
-/* sets PG bit on PSW */
+/* 
+ * sets PG bit on PSW
+ */
 void enable_paging (void);
 
-/* sets cr3 */
+/*
+ * sets cr3
+ */
 void set_page_dir (struct pg_dir* new_dir);
 
-/* kernel/intr/handlers/page_fault.c */
+/*
+ * kernel/intr/handlers/page_fault.c
+ */
 void on_page_fault (struct isr_regs*);
 
 #endif /* __ASSEMBLY__ */

@@ -25,9 +25,13 @@
 #define GDT_UDATA (GDT_IDX_UDATA * GDT_SZENT)
 
 #define GDT_PRESENT 	(bit(7))
-/* 5 and 6 bits are rights */
+/* 
+ * 5 and 6 bits are rights
+ */
 #define GDT_PRIV(x)	(bitoff(x, 5))
-/* CORD - code or data */
+/* 
+ * CORD - code or data
+ */
 #define GDT_CORD	(bit(4))
 #define GDT_CODE	(bit(3))
 

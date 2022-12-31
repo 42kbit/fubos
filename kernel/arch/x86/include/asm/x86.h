@@ -5,7 +5,8 @@
 
 #include <fubos/ints.h>
 
-/* register get/set recepie
+/* 
+ * register get/set recepie
  * 
  * Generates following:
  * x - register name
@@ -14,7 +15,7 @@
  *
  * __x86_reg_get(ds,w,seg,rm) expands to
  * asm volatile("movw %%ds, %%0" : =rm(seg))
- * */
+ */
 #define __x86_reg_set(x, s, var, mode)\
 	asm volatile("mov" #s " %0,%%" #x : : #mode(var)) 
 

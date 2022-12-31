@@ -1,7 +1,8 @@
 #ifndef   __H_MEMMAP_H
 #define   __H_MEMMAP_H
 
-/* This header defines:
+/* 
+ * This header defines:
  * memory layout in x86 systems
  * fubos virtual memory layout
  */

@@ -5,7 +5,9 @@
  *	https://wiki.osdev.org/PIC
  */
 
-/* PIC IO ports */
+/* 
+ * PIC IO ports
+ */
 
 #define PIC1	0x20 /* Master base */
 #define PIC2	0xA0 /* Slave  base */
@@ -41,7 +43,6 @@
  * IRQ0 - IRQ15
  *
  * (see isr.h)
- * 
  */
 
 void pic_remap_irq (void);
