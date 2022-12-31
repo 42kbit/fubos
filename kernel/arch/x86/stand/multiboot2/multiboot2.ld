@@ -12,11 +12,11 @@ SECTIONS
 {
 	. = PHYS_LOAD_ADDR;
 	/* entry.S */
-	.boottext : {
+	.boottext : AT(ADDR(.boottext)){
 		*(.boottext)
 	}
 
-	.bootdata : {
+	.bootdata : AT(ADDR(.bootdata)){
 		*(.bootdata)
 	}
 

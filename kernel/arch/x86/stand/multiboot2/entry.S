@@ -33,6 +33,8 @@ Kernel is loaded on physical address PHYS_LOAD_ADDR by bootloader
 	(see asm/memmap.h)
 */
 
+#define addr_to_4mib_chunk(x) ((x) / mib(4))
+
 .section .bootdata, "a"
 .section .boottext, "ax"
 .globl _start
@@ -52,16 +54,15 @@ _start:
 
 	/* setup page directory, that page_directory[0] and page_directory[768] points to page_table */
 	movl $__pa(__kpt), %eax
-	andw $0xf000, %ax
+	andl $~bitmask(PAGE_SHIFT), %eax
 	movb $0b00100111, %al
 
 	movl $__pa(__kpd), %edi
 	/* page_directory[0] = page_table */
-	movl %eax, __pa(__kpd)
+	movl %eax, __pa(__kpd) + addr_to_4mib_chunk(PHYS_LOAD_ADDR)*4
 
 	/* page_directory[768] = page_table */
-	movl $768, %ecx
-	movl %eax, (%edi,%ecx,4)
+	movl %eax, __pa(__kpd) + addr_to_4mib_chunk(VIRT_LOAD_ADDR)*4
 
 /* 
  * init page_table
@@ -70,7 +71,7 @@ _start:
 	movl $__pa(__kpt), %edi
 
 ptbl_init_lpbeg:
-	cmp $0x400, %eax
+	cmp $PG_TBL_NENT, %eax
 	jge ptbl_init_lpend
 
 	movl %eax, %edx
@@ -88,7 +89,6 @@ ptbl_init_lpbeg:
 	jmp ptbl_init_lpbeg
 ptbl_init_lpend:
 
-	movb $'a', 0xb8000
 	movl $__pa(__kpd), %eax
 	movl %eax, %cr3
 

@@ -22,7 +22,7 @@ endif
 # VARIABLES AND DEFINES
 # CFLAGS
 CF_ALL	:=-Wall -Iinclude -Ikernel/arch/$(ARCH)/include -nostdlib -nostdinc -fno-builtin
-ASF_ALL	:=-Wall -Iinclude -Ikernel/arch/$(ARCH)/include -nostdlib -nostdinc -fno-builtin
+ASF_ALL	:=-Wall -Iinclude -Ikernel/arch/$(ARCH)/include -nostdlib -nostdinc -fno-builtin -Xassembler --divide
 # LINK FLAGS
 LF_ALL	:=
 
