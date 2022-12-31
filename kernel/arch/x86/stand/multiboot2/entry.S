@@ -40,15 +40,15 @@ Kernel is loaded on physical address PHYS_LOAD_ADDR by bootloader
 .globl _start
 _start:
 	cli
-	/* memset(page_directory, 0, 4096) */
+	/* memset(page_directory, 0, PAGE_SIZE) */
 	cld
 	xorl %eax, %eax
-	movl $0x1000, %ecx
+	movl $PAGE_SIZE, %ecx
 	movl $__pa(__kpd), %edi
 	rep stosl
 
-	/* memset(page_table, 0, 4096) */
-	movl $0x1000, %ecx
+	/* memset(page_table, 0, PAGE_SIZE) */
+	movl $PAGE_SIZE, %ecx
 	movl $__pa(__kpt), %edi
 	rep stosl
 
@@ -57,11 +57,14 @@ _start:
 	andl $~bitmask(PAGE_SHIFT), %eax
 	movb $0b00100111, %al
 
-	movl $__pa(__kpd), %edi
-	/* page_directory[0] = page_table */
+/* 
+ * page_directory[0] = page_table
+ */
 	movl %eax, __pa(__kpd) + addr_to_4mib_chunk(PHYS_LOAD_ADDR)*4
 
-	/* page_directory[768] = page_table */
+/*
+ * page_directory[768] = page_table
+ */
 	movl %eax, __pa(__kpd) + addr_to_4mib_chunk(VIRT_LOAD_ADDR)*4
 
 /* 
@@ -75,7 +78,7 @@ ptbl_init_lpbeg:
 	jge ptbl_init_lpend
 
 	movl %eax, %edx
-	shl $12, %edx
+	shl $PAGE_SHIFT, %edx
 	movb $0b00000011, %dl
 
 /* 
