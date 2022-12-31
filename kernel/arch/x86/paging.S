@@ -2,8 +2,8 @@
 #include <asm/cr.h>
 
 /*
-asm/page.h
-void enable_paging (void);
+ * asm/page.h
+ * void enable_paging (void);
 */
 .globl enable_paging
 enable_paging:
@@ -13,8 +13,8 @@ enable_paging:
 	ret
 
 /*
-asm/page.h
-void set_page_dir (struct pg_dir* new_dir);
+ * asm/page.h
+ * void set_page_dir (struct pg_dir* new_dir);
 */
 
 .globl set_page_dir

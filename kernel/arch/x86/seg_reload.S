@@ -2,8 +2,8 @@
 #include <asm/gdt.h>
 
 /* 
-	asm/gdt.h
-void flush_gdt(gdt_ptr_t*);
+ * asm/gdt.h
+ * void flush_gdt(gdt_ptr_t*);
 */
 
 .globl flush_gdt
@@ -22,8 +22,8 @@ __flush:
 	ret
 
 /* 
-	asm/idt.h
-void flush_idt(idt_ptr_t*);
+ * asm/idt.h
+ * void flush_idt(idt_ptr_t*);
 */
 .globl flush_idt
 flush_idt:

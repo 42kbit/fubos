@@ -23,14 +23,14 @@
 .extern __kpt
 
 /*
-code is loaded to LOAD_PHYS_ADDR,
-We must enable paging, so that
-
-   VIRTUAL	  ->	PHYSICAL
-   0xc0000000     ->	0x00000000
-
-Kernel is loaded on physical address PHYS_LOAD_ADDR by bootloader
-	(see asm/memmap.h)
+ * code is loaded to PHYS_LOAD_ADDR,
+ * We must enable paging, so that
+ * 
+ *    VIRTUAL	  ->	PHYSICAL
+ *    0xc0000000  ->	0x00000000
+ * 
+ * Kernel is loaded on physical address PHYS_LOAD_ADDR by bootloader
+ * 	(see asm/memmap.h)
 */
 
 #define addr_to_4mib_chunk(x) ((x) / mib(4))
