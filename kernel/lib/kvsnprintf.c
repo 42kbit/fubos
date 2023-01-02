@@ -30,6 +30,8 @@ static inline ptrdiff_t utoa (u32 n, char * buf, u8 base, const char* digits){
 		*(buf_iter++) = digits[digit];
 	}
 	reverse_inplace(buf, strlen(buf));
+	if ((buf_iter - buf) == 0)
+		*(buf_iter++) = '0';
 	return buf_iter - buf;
 }
 

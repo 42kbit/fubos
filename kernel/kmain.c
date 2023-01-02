@@ -48,6 +48,22 @@ extern sym __phys_load_addr;
 extern sym __phys_load_len;
 
 extern sym __kpd;
+extern sym __kpt;
+
+void print_pde (struct pde * ent){
+	kprintf(" Present: %u\n"
+		" Read/Write: %u\n"
+		" Public: %u\n"
+		" Write-Through: %u\n"
+		" Cache Disabled: %u\n"
+		" Accessed: %u\n"
+		" 4 MiB Page: %u\n"
+		" Address: %p\n",
+		pde_present(ent), pde_rdwr(ent),
+		pde_public(ent), pde_write_through(ent),
+		pde_cache_disabled(ent), pde_accessed(ent),
+		pde_4mib_page(ent), pde_addr(ent));
+}
 
 void kmain(void){
 	arch_init();
@@ -62,6 +78,10 @@ void kmain(void){
 			__symval(__phys_load_len,  addr_t)
 			);
 	kprintf("virtual kmain: %p\nphys kmain:%p\n", (void*)kmain, virt_to_phys(kmain));
+
+	struct pde* kpd = __symval(__kpd, struct pde*);
+	struct pte* kpt = __symval(__kpt, struct pte*);
+	print_pde (kpd + 768);
 
 	set_ebx(0);
 	set_bh(1);
