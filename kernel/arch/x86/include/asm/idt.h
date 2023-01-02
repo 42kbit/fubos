@@ -17,15 +17,15 @@
 #include <fubos/ints.h>
 #include <fubos/compiler_attributes.h>
 
+#define IDT_FLAGS_SHIFT_P	7
+#define IDT_FLAGS_SHIFT_DPL	5
+
 #define idt_make_entry(_handler, _selector, _gtype, _dpl, _p)\
 	{\
 		.offset 	= bitcut(_handler, 0, 16),\
 		.selector 	= _selector,\
 		.__reserved	= 0,\
-		.gt		= _gtype,\
-		.__zero 	= 0,\
-		.dpl		= _dpl,\
-		.p		= _p,\
+		.flags		= _gtype | (_dpl << IDT_FLAGS_SHIFT_DPL) | (_p << IDT_FLAGS_SHIFT_P),\
 		.offset_high	= bitcut(_handler, 16, 16)\
 	}
 
@@ -33,12 +33,29 @@ struct idt_entry {
 	u16 offset;
 	u16 selector;
 	u8  __reserved;
-	u8  gt		: 4,
-	    __zero	: 1,
-	    dpl		: 2,
-	    p		: 1;
+	u8 flags;
 	u16 offset_high;
 } __packed;
+
+static inline u32 idt_entry_offset (const struct idt_entry * ent){
+	return ((ent->offset_high << 16) | ent->offset);
+}
+
+static inline u16 idt_entry_selector (const struct idt_entry * ent){
+	return ent->selector;
+}
+
+static inline u8 idt_entry_gt (const struct idt_entry * ent){
+	return bitcut(ent->flags, 0, 4);
+}
+
+static inline u8 idt_entry_dpl (const struct idt_entry * ent){
+	return bitcut(ent->flags, IDT_FLAGS_SHIFT_DPL, 2);
+}
+
+static inline u8 idt_entry_p (const struct idt_entry * ent){
+	return bitcut(ent->flags, IDT_FLAGS_SHIFT_P, 1);
+}
 
 struct idt_ptr {
 	u16 size;
