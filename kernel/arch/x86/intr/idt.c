@@ -6,6 +6,7 @@
 
 #include <asm/isr.h>
 #include <asm/page.h>
+#include <asm/handlers.h>
 
 struct idt_entry idt[IDT_NENT];
 

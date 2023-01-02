@@ -48,6 +48,10 @@
 #	undef __pa
 #	define __pa(x) ((void*)((char*)(x) - PAGE_OFFSET))
 
+static inline void* virt_to_phys(volatile void * addr){
+	return __pa(addr);
+}
+
 #endif /* __ASSEMBLY__ */
 #endif /* __GNULD__ */
 

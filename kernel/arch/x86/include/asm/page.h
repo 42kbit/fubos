@@ -16,7 +16,13 @@
 #include <fubos/compiler_attributes.h>
 #include <asm/memmap.h>
 
-struct pg_dir_node {
+/* Next structs do define 2-level paging in x86 systems,
+ * this includes:
+ * 	struct pde <- Page Directory Entry
+ * 	struct pte <- Page Table Entry
+ */
+
+struct pde {
 	u32
 	   present 	: 1,
 	   rd_wr	: 1,
@@ -30,7 +36,7 @@ struct pg_dir_node {
 	   adr		: 20;
 } __packed;
 
-struct pg_tbl_node {
+struct pte {
 	u32
 	   present 	: 1,
 	   rd_wr	: 1,
@@ -45,32 +51,13 @@ struct pg_tbl_node {
 	   adr		: 20;
 } __packed;
 
-struct pg_tbl {
-	struct pg_tbl_node pt_nodes[PG_TBL_NENT];
+struct pt {
+	struct pte pt_nodes[PG_TBL_NENT];
 };
 
-struct pg_dir {
-	struct pg_dir_node pd_nodes[PG_DIR_NENT];
+struct pd {
+	struct pde pd_nodes[PG_DIR_NENT];
 };
-
-static inline void* virt_to_phys(volatile void * addr){
-	return __pa(addr);
-}
-
-/* 
- * sets PG bit on PSW
- */
-void enable_paging (void);
-
-/*
- * sets cr3
- */
-void set_page_dir (struct pg_dir* new_dir);
-
-/*
- * kernel/intr/handlers/page_fault.c
- */
-void on_page_fault (struct isr_regs*);
 
 #endif /* __ASSEMBLY__ */
 #endif /* __GNULD__ */

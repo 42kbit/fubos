@@ -37,23 +37,19 @@ struct idt_entry {
 	u16 offset_high;
 } __packed;
 
-static inline u32 idt_entry_offset (const struct idt_entry * ent){
+static __always_inline inline u32 idt_entry_offset (const struct idt_entry * ent){
 	return ((ent->offset_high << 16) | ent->offset);
 }
 
-static inline u16 idt_entry_selector (const struct idt_entry * ent){
-	return ent->selector;
-}
-
-static inline u8 idt_entry_gt (const struct idt_entry * ent){
+static __always_inline inline u8 idt_entry_gt (const struct idt_entry * ent){
 	return bitcut(ent->flags, 0, 4);
 }
 
-static inline u8 idt_entry_dpl (const struct idt_entry * ent){
+static __always_inline inline u8 idt_entry_dpl (const struct idt_entry * ent){
 	return bitcut(ent->flags, IDT_FLAGS_SHIFT_DPL, 2);
 }
 
-static inline u8 idt_entry_p (const struct idt_entry * ent){
+static __always_inline inline u8 idt_entry_p (const struct idt_entry * ent){
 	return bitcut(ent->flags, IDT_FLAGS_SHIFT_P, 1);
 }
 

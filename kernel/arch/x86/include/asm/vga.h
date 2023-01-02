@@ -10,8 +10,7 @@
 
 struct vga_node {
 	u8 c;
-	u8 fg : 4,
-	   bg : 4;
+	u8 color;
 };
 
 #endif /* __H_VGA_H */

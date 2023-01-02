@@ -19,4 +19,7 @@
 #define __aligned(x)\
 	__atr(__aligned__(x))
 
+#define __always_inline\
+	__atr(always_inline)
+
 #endif /* __H_FUBOS_SECTIONS_H */

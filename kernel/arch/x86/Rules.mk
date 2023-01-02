@@ -10,8 +10,7 @@ $(error CONFIG_LOG_INPLACE disabled (feature not supported yet))
 endif
 
 ASMOBJS_$(d)	:=		\
-	$(od)/seg_reload.o	\
-	$(od)/paging.o
+	$(od)/seg_reload.o	
 
 OBJS_$(d)	:=$(COBJS_$(d)) $(ASMOBJS_$(d))
 
