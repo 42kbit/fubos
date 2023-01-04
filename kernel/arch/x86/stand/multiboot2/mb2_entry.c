@@ -13,8 +13,7 @@
 
 #include "mb2.h"
 
-/* Set up in entry.S
- */
+/* Set up in entry.S */
 struct mb2_binfo_header* mb2_binfo = NULL;
 
 static inline struct mb2_binfo_meta* mb2_next_binfo_tag (struct mb2_binfo_meta* current){
@@ -27,15 +26,33 @@ static inline struct mb2_binfo_meta* mb2_next_binfo_tag (struct mb2_binfo_meta* 
 	return next;
 }
 
+static inline void mb2_binfo_parser_loadername (struct mb2_binfo_meta* _base, struct boot_info* info){
+	/* may use container_of, but that is overkill */
+	struct mb2_binfo_loadername* base = (struct mb2_binfo_loadername*)_base;
+	info->loader_name = base->string;
+}
+
+/* Parse current info tag, and write to boot_info */
+typedef void (*mb2_binfo_parser_t)(struct mb2_binfo_meta*, struct boot_info* info);
+
+/* O(n) but cached so ok */
+static inline mb2_binfo_parser_t mb2_get_parser_func (struct mb2_binfo_meta* from){
+	switch (from->type){
+		case MB2_BINFO_LOADERNAME: return mb2_binfo_parser_loadername;
+	}
+	return NULL;
+}
+
 void mb2_entry (void) {
-	__init_vga();
-	kprintf ("Info: %p\nTotal size: %u\n", mb2_binfo, mb2_binfo->total_size);
+	struct boot_info binfo;
+
 	for (struct mb2_binfo_meta* iter = mb2_next_binfo_tag(NULL);
 			iter != NULL;
 			iter = mb2_next_binfo_tag(iter))
 	{
-		kprintf ("%u:%u\n", iter->type, iter->size);
+		mb2_binfo_parser_t iter_parser = mb2_get_parser_func (iter);
+		if (iter_parser)
+			iter_parser (iter, &binfo);
 	}
-	cpu_die ();
-	kmain (NULL);
+	kmain (&binfo);
 }

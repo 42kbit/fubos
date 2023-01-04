@@ -32,6 +32,9 @@ Offset	Type	Field Name	Note
 
 #include <fubos/ints.h>
 
+struct boot_info {
+	const char * loader_name;
+};
 
 /* Multiboot header tags
  */
@@ -65,29 +68,59 @@ struct mb2_binfo_meta {
 	    size;
 };
 
+#define MB2_BINFO_MEMINFO 4
 struct mb2_binfo_meminfo {
 	struct mb2_binfo_meta meta;
 	u32 mem_lower,
 	    mem_upper;
 };
 
-struct mb2_binfo_bios_dev {
+#define MB2_BINFO_BIOSDEV 5
+struct mb2_binfo_biosdev {
 	struct mb2_binfo_meta meta;
 	u32 biosdev,
 	    partition,
 	    sub_partition;
 };
 
+#define MB2_BINFO_CMD 1
 struct mb2_binfo_cmd {
 	struct mb2_binfo_meta meta;
-	u8 string[];
+	char string[];
 };
 
+#define MB2_BINFO_MODULE 3
 struct mb2_binfo_module {
 	struct mb2_binfo_meta meta;
 	u32 mod_start,
 	    mod_end;
-	u8  string[];
+	char string[];
+};
+
+#define MB2_BINFO_ELFSYMS 9
+struct mb2_binfo_elfsyms {
+	struct mb2_binfo_meta meta;
+};
+
+#define MB2_BINFO_MEMMAP 6
+struct mb2_binfo_memmap {
+	struct mb2_binfo_meta meta;
+};
+
+#define MB2_BINFO_LOADERNAME 2
+struct mb2_binfo_loadername {
+	struct mb2_binfo_meta meta;
+	char string[];
+};
+
+#define MB2_BINFO_APM 10
+struct mb2_binfo_apm {
+	struct mb2_binfo_meta meta;
+};
+
+#define MB2_BINFO_VBE 7
+struct mb2_binfo_vbe {
+	struct mb2_binfo_meta meta;
 };
 
 #endif /* __ASSEMBLY__ */

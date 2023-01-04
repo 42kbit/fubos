@@ -18,8 +18,8 @@
  */
 
 void arch_init	(void);
-void cpu_relax	(void);
-void cpu_die	(void);
+void cpu_relax	(void) __noreturn;
+void cpu_die	(void) __noreturn;
 
 #define __X86_INT(x) asm volatile ( "int $" #x ";" )
 
@@ -73,6 +73,7 @@ void kmain(struct boot_info* info){
 		cpu_die();
 
 	kprintf("klog initialized successfully\n");
+	kprintf("Loader: %s\n", binfo_loader_name(info));
 	kprintf("%%p = %p, %%u = %u, %%s = %s\n", (void*)0xdeadb, 15, "foo, bar!");
 	kprintf("__phys_load_addr = %p\n__phys_load_len = %p\n",
 			__symval(__phys_load_addr, void*),

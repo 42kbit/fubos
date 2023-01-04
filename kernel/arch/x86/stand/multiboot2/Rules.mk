@@ -1,6 +1,7 @@
-COBJS_$(d)	:=\
-	$(od)/mb2_header.o\
-	$(od)/mb2_entry.o
+COBJS_$(d)	:=		\
+	$(od)/mb2_header.o	\
+	$(od)/mb2_entry.o	\
+	$(od)/mb2_bootwrap.o
 ASMOBJS_$(d)	:=$(od)/entry.o
 OBJS_$(d)	:=	\
 	$(ASMOBJS_$(d))	\
