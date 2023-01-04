@@ -74,20 +74,11 @@ void kmain(struct boot_info* info){
 
 	kprintf("klog initialized successfully\n");
 	kprintf("Loader: %s\n", binfo_loader_name(info));
-	kprintf("%%p = %p, %%u = %u, %%s = %s\n", (void*)0xdeadb, 15, "foo, bar!");
-	kprintf("__phys_load_addr = %p\n__phys_load_len = %p\n",
-			__symval(__phys_load_addr, void*),
-			__symval(__phys_load_len,  addr_t)
-			);
 	kprintf("virtual kmain: %p\nphys kmain:%p\n", (void*)kmain, virt_to_phys(kmain));
 
 	struct pde* kpd = __symval(__kpd, struct pde*);
-	struct pte* kpt = __symval(__kpt, struct pte*);
 	print_pde (kpd + 768);
 
-	set_ebx(0);
-	set_bh(1);
-	kprintf("ebx: %u\n", get_ebx());
 	init_timer(50);
 
 	cpu_relax();

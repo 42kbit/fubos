@@ -34,6 +34,8 @@ Offset	Type	Field Name	Note
 
 struct boot_info {
 	const char * loader_name;
+	void * himem,
+	     * lomem;
 };
 
 /* Multiboot header tags

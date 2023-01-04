@@ -7,7 +7,7 @@
  */
 struct boot_info;
 
-const char * binfo_loader_name (struct boot_info*);
+const char * binfo_loader_name 	(struct boot_info*);
 
 void kmain (struct boot_info* info) __noreturn;
 

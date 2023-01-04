@@ -32,13 +32,18 @@ static inline void mb2_binfo_parser_loadername (struct mb2_binfo_meta* _base, st
 	info->loader_name = base->string;
 }
 
+static inline void mb2_binfo_parser_module (struct mb2_binfo_meta* _base, struct boot_info* info){
+	struct mb2_binfo_meminfo* base = (struct mb2_binfo_loadername*)_base;
+}
+
 /* Parse current info tag, and write to boot_info */
 typedef void (*mb2_binfo_parser_t)(struct mb2_binfo_meta*, struct boot_info* info);
 
 /* O(n) but cached so ok */
 static inline mb2_binfo_parser_t mb2_get_parser_func (struct mb2_binfo_meta* from){
 	switch (from->type){
-		case MB2_BINFO_LOADERNAME: return mb2_binfo_parser_loadername;
+		case MB2_BINFO_LOADERNAME:	return mb2_binfo_parser_loadername;
+		case MB2_BINFO_MODULE:		return mb2_binfo_parser_module;
 	}
 	return NULL;
 }
