@@ -32,18 +32,62 @@ Offset	Type	Field Name	Note
 
 #include <fubos/ints.h>
 
-struct multiboot2_tag {
+
+/* Multiboot header tags
+ */
+
+struct mb2_generic_tag {
 	u16 type,
 	    flags;
 	u32 size;
 };
 
-struct multiboot2_header {
+struct mb2_header {
 	u32 magic,
 	    architecture,
 	    header_length,
 	    checksum;
-	struct multiboot2_tag end_tag;
+	struct mb2_generic_tag end_tag;
+};
+
+/* Multiboot boot info tags
+ */
+struct mb2_binfo_header {
+	u32 total_size,
+	    reserved;
+};
+
+/* Metadata for info structure
+ * Located in memory first
+ */
+struct mb2_binfo_meta {
+	u32 type,
+	    size;
+};
+
+struct mb2_binfo_meminfo {
+	struct mb2_binfo_meta meta;
+	u32 mem_lower,
+	    mem_upper;
+};
+
+struct mb2_binfo_bios_dev {
+	struct mb2_binfo_meta meta;
+	u32 biosdev,
+	    partition,
+	    sub_partition;
+};
+
+struct mb2_binfo_cmd {
+	struct mb2_binfo_meta meta;
+	u8 string[];
+};
+
+struct mb2_binfo_module {
+	struct mb2_binfo_meta meta;
+	u32 mod_start,
+	    mod_end;
+	u8  string[];
 };
 
 #endif /* __ASSEMBLY__ */

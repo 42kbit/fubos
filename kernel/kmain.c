@@ -11,6 +11,7 @@
 #include <fubos/symbol.h>
 
 #include <fubos/klog.h>
+#include <fubos/boot.h>
 
 /* 
  * not arch independent code will be fixed later
@@ -65,7 +66,7 @@ void print_pde (struct pde * ent){
 		pde_4mib_page(ent), pde_addr(ent));
 }
 
-void kmain(void){
+void kmain(struct boot_info* info){
 	arch_init();
 
 	if (init_klog_buffer() < 0)

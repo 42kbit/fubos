@@ -6,12 +6,13 @@
 #include <asm/cr.h>
 #include <fubos/bitops.h>
 
-.extern on_boot
-.extern kmain
+.extern multiboot_entry
 .extern cpu_die
 .extern gdt_ptr
 .extern gdt
 .extern enable_paging
+
+.extern mb2_binfo
 
 /*
  * page directory
@@ -42,8 +43,11 @@
 _start:
 	cli
 
+	movl %ebx, __pa(mb2_binfo)
+
 /* 
  * memset(page_directory, 0, PAGE_SIZE)
+ * memset(page_table, 0, PAGE_SIZE)
  */
 	cld
 	xorl %eax, %eax
@@ -51,9 +55,6 @@ _start:
 	movl $__pa(__kpd), %edi
 	rep stosl
 
-/*
- * memset(page_table, 0, PAGE_SIZE)
- */
 	movl $PAGE_SIZE, %ecx
 	movl $__pa(__kpt), %edi
 	rep stosl
@@ -121,4 +122,4 @@ ptbl_init_lpend:
 __flush:
 	
 	movl $__kstack_end, %esp
-	jmp kmain
+	jmp mb2_entry
