@@ -6,7 +6,7 @@ OUT_DIR=.out
 KFILE=kernel.bin
 KDIR=$OUT_DIR/fubos
 K=$KDIR/$KFILE
-ISO_DIR=$KDIR/isofiles
+ISO_DIR=$OUT_DIR/isofiles
 
 CONFIGS_DIR=cfg
 
@@ -21,6 +21,7 @@ CONFIGS_DIR=cfg
 
 mkdir -p $ISO_DIR/boot/grub
 cp $K $ISO_DIR/boot
+cp $OUT_DIR/test-module/tmod $ISO_DIR/boot
 cp $CONFIGS_DIR/grub.cfg $ISO_DIR/boot/grub
 
 grub-mkrescue -o $OUT_DIR/fubos.iso $ISO_DIR

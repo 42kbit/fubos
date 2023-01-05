@@ -146,7 +146,7 @@ append =$(eval $(1):=$($(1)) $(2))
 all: init targets
 	@echo done
 
-ROOT_TOP	:=fubos
+ROOT_TOP	:=fubos test-module
 
 # Copy paste of $(dinclude), but for root mkfile
 SUBDIRS	:=$(ROOT_TOP)
