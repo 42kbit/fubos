@@ -17,20 +17,20 @@ LF_$(KBIN) += -Map=$(bd)/kbin.map
 
 KBIN_INCFLAGS := -I$(d)/include -I$(d)/arch/$(ARCH)/include
 
-# Recrusive CFLAGS, that added for each subdir
+# Following code adds for each directory following c and asm flags.
 RCFLAGS = $(CF_ALL) $(KBIN_INCFLAGS) \
 	-nostdlib -nostdinc -fno-builtin
 
 RASFLAGS = $(CF_ALL) $(KBIN_INCFLAGS) \
 	-nostdlib -nostdinc -fno-builtin -Xassembler --divide
 
-$(foreach di,\
-	$(shell find $(d) -type d),\
-	$(eval CF_$(di) += $(RCFLAGS)))
+get_subdirs = $(shell find $(1) -type d)
+subdirs_append_flags = $(foreach di, $(call get_subdirs, $(1)), $(eval $(2)_$(di) += $(3)) )
 
-$(foreach di,\
-	$(shell find $(d) -type d),\
-	$(eval ASF_$(di) += $(RASFLAGS)))
+$(call subdirs_append_flags, $(d), CF,  $(RCFLAGS) )
+$(call subdirs_append_flags, $(d), ASF, $(RASFLAGS))
+
+# Build dependency for kernel image
 
 $(d): $(KBIN)
 $(KBIN): $(COBJS_$(d))
