@@ -4,7 +4,7 @@
 
 OUT_DIR=.out
 KFILE=kernel.bin
-KDIR=$OUT_DIR/kernel
+KDIR=$OUT_DIR/fubos
 K=$KDIR/$KFILE
 ISO_DIR=$KDIR/isofiles
 

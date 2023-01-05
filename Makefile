@@ -21,8 +21,13 @@ endif
 
 # VARIABLES AND DEFINES
 # CFLAGS
-CF_ALL	:=-Wall -Iinclude -Ikernel/arch/$(ARCH)/include -nostdlib -nostdinc -fno-builtin
-ASF_ALL	:=-Wall -Iinclude -Ikernel/arch/$(ARCH)/include -nostdlib -nostdinc -fno-builtin -Xassembler --divide
+
+#CF_ALL	:=-Wall -Iinclude -Ikernel/arch/$(ARCH)/include -nostdlib -nostdinc -fno-builtin
+#ASF_ALL:=-Wall -Iinclude -Ikernel/arch/$(ARCH)/include -nostdlib -nostdinc -fno-builtin -Xassembler --divide
+
+CF_ALL	:=-Wall
+ASF_ALL	:=-Wall
+
 # LINK FLAGS
 LF_ALL	:=
 
@@ -144,7 +149,7 @@ append =$(eval $(1):=$($(1)) $(2))
 all: init targets
 	@echo done
 
-ROOT_TOP	:=kernel
+ROOT_TOP	:=fubos
 
 # Copy paste of $(dinclude), but for root mkfile
 SUBDIRS	:=$(ROOT_TOP)

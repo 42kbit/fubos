@@ -14,4 +14,4 @@ LF_$(KBIN)	:=\
 $(KBIN): $(OBJS_$(d)) $(od)/prep_mb2.ld
 
 $(od)/prep_mb2.ld: $(d)/mb2.ld
-	$(CC) -E -P -x c $(CF_ALL) -D__GNULD__=1 $^ > $@
+	$(CC) -E -P -x c $(KBIN_INCFLAGS) -D__GNULD__=1 $^ > $@
