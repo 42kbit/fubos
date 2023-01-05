@@ -33,7 +33,7 @@ static inline void mb2_binfo_parser_loadername (struct mb2_binfo_meta* _base, st
 }
 
 static inline void mb2_binfo_parser_module (struct mb2_binfo_meta* _base, struct boot_info* info){
-	struct mb2_binfo_meminfo* base = (struct mb2_binfo_loadername*)_base;
+	struct mb2_binfo_module* base = (struct mb2_binfo_module*)_base;
 }
 
 /* Parse current info tag, and write to boot_info */

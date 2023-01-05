@@ -7,6 +7,8 @@ OBJS_$(d)	:=	\
 	$(ASMOBJS_$(d))	\
 	$(COBJS_$(d))
 
+CF_$(od)/mb2_entry.o	:=-Wno-unused-parameter
+
 LF_$(KBIN)	:=\
 		-T $(od)/prep_mb2.ld\
 		-Map=$(dir $(KBIN))/kmap.map
