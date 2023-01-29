@@ -85,6 +85,21 @@ void kmain(struct boot_info* info){
 	print_pde (kpd + 768);
 	*/
 
+	/* TODO: test module, setup virtual memory for it, then jump to elf entry. */
+
+	struct elf_header32 {
+		char e_ident[16];
+		short e_type,
+		      e_machine;
+		int   e_version;
+		int   e_entry;
+	};
+	struct elf_header32* mod_addr = (struct elf_header32*)bmod_addr(modules[0]);
+	/*
+	asm volatile ("jmp %0\n\t" :: "r"(mod_addr->e_entry));
+	*/
+	kprintf ("%s\n", mod_addr);
+
 	init_timer(50);
 
 	cpu_relax();

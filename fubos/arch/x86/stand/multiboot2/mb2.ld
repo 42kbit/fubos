@@ -42,23 +42,22 @@ SECTIONS
 	__bss_begin = . ;
 	.bss ALIGN(PAGE_SIZE) : AT(ADDR(.bss) - PAGE_OFFSET) {
 		*(.bss)
+		. = ALIGN(PAGE_SIZE);
+		__kheap_begin = ABSOLUTE(.);
+		. += 64K;
+		__kheap_end = ABSOLUTE(.);
+		/* entry.S */
+		. = ALIGN(PAGE_SIZE);
+		__kpd = ABSOLUTE(.);
+		. += PAGE_SIZE;
+		__kpt = ABSOLUTE(.);
+		. += PAGE_SIZE;
+		__kstack_begin = ABSOLUTE(.);
+		. += 64K;
+		__kstack_end = ABSOLUTE(.);
+		. += PAGE_SIZE;
+		__mb2_binfo_copy = ABSOLUTE(.);
+		. += PAGE_SIZE;
 	}
 	__bss_end = . ;
-
-	. = ALIGN(PAGE_SIZE);
-	__kheap_begin = . ;
-	. += 64K;
-	__kheap_end = . ;
-	/* entry.S */
-	. = ALIGN(PAGE_SIZE);
-	__kpd = . ;
-	. += PAGE_SIZE;
-	__kpt = . ;
-	. += PAGE_SIZE;
-	__kstack_begin = . ;
-	. += 64K;
-	__kstack_end = . ;
-	. += PAGE_SIZE;
-	/* filled in entry.S */
-	__mb2_binfo_copy = . ;
 }
