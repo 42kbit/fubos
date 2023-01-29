@@ -1,6 +1,6 @@
 TMOD	:=$(bd)/tmod
 
-ASMOBJS_$(d)	:=$(d)/test.o
+ASMOBJS_$(d)	:=$(od)/test.o
 
 OBJS_$(d)	:=$(ASMOBJS_$(d))
 

@@ -21,8 +21,6 @@ void arch_init	(void);
 void cpu_relax	(void) __noreturn;
 void cpu_die	(void) __noreturn;
 
-#define __X86_INT(x) asm volatile ( "int $" #x ";" )
-
 #include <asm/isr.h>
 
 u32 ticks_passed = 0;
@@ -44,10 +42,6 @@ void init_timer (u32 freq){
 	outb(0x40, l);
 	outb(0x40, h);
 }
-
-extern sym __phys_load_addr;
-extern sym __phys_load_len;
-
 extern sym __kpd;
 extern sym __kpt;
 
@@ -71,10 +65,9 @@ void kmain(struct boot_info* info){
 
 	if (init_klog_buffer() < 0)
 		cpu_die();
-
 	kprintf("klog initialized successfully\n");
+	
 	kprintf("Loader: %s\n", binfo_loader_name(info));
-	kprintf("virtual kmain: %p\nphys kmain:%p\n", (void*)kmain, virt_to_phys(kmain));
 
 	struct boot_module* modules[BOOT_MAX_MODS];
 	binfo_mods(info, modules);

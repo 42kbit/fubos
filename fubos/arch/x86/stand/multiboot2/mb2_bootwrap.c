@@ -8,7 +8,7 @@ const char * binfo_loader_name (struct boot_info* info) {
 
 /* writes to buf array of pointers to modules (NULL terminated) */
 void binfo_mods (struct boot_info* info, struct boot_module** buf){
-	int i;
+	i32 i;
 	for (i = 0; i < info->modules_top; i++){
 		buf[i] = &(info->modules[i]);
 	}
@@ -16,9 +16,9 @@ void binfo_mods (struct boot_info* info, struct boot_module** buf){
 }
 
 void* bmod_addr (struct boot_module* mod){
-	return mod->mb2_module->mod_start;
+	return (void*)mod->mb2_module->mod_start;
 }
 
 const char* bmod_name (struct boot_module* mod){
-	return &(mod->mb2_module->string);
+	return mod->mb2_module->string;
 }

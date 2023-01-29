@@ -2,9 +2,9 @@
 
 #include <fubos/assert.h>
 
-static inline void reverse_inplace(char * str, size_t len){
+static inline void reverse_inplace(char * str, ssize_t len){
 	char tmp;
-	for (i32 i = 0; i < len/2; i++){
+	for (ssize_t i = 0; i < len/2; i++){
 		tmp = str[i];
 		str[i] = str[len-i-1];
 		str[len-i-1] = tmp;

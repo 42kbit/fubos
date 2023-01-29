@@ -4,6 +4,7 @@
 #define NULL ((void*)0)
 
 typedef unsigned long size_t;
+typedef long ssize_t;
 typedef unsigned long ptrdiff_t;
 
 #define offsetof(type,name)\

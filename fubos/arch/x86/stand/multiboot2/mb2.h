@@ -41,7 +41,7 @@ struct boot_module {
 struct boot_info {
 	const char * loader_name;
 	struct boot_module modules[BOOT_MAX_MODS];
-	u32 modules_top;
+	i32 modules_top;
 };
 
 static inline void mb2_init_boot_info (struct boot_info* info){
