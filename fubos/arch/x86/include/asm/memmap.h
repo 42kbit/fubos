@@ -41,15 +41,25 @@
 #ifndef __GNULD__
 
 #define __pa(x) (x - PAGE_OFFSET)
+#define __va(x) (x + PAGE_OFFSET)
 
 #ifndef __ASSEMBLY__
 
-#	include <fubos/types.h>
-#	undef __pa
-#	define __pa(x) ((void*)((char*)(x) - PAGE_OFFSET))
+#include <fubos/types.h>
+#include <fubos/pmath.h>
 
-static inline void* virt_to_phys(volatile void * addr){
-	return __pa(addr);
+#undef __pa
+#undef __va
+
+#define __pa(x) ptraddc(x, -PAGE_OFFSET, void*)
+#define __va(x) ptraddc(x, +PAGE_OFFSET, void*)
+
+static inline void* virt_to_phys(volatile void * vaddr){
+	return __pa(vaddr);
+}
+
+static inline void* phys_to_virt(volatile void * paddr){
+	return __va(paddr);
 }
 
 #endif /* __ASSEMBLY__ */

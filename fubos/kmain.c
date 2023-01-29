@@ -76,8 +76,21 @@ void kmain(struct boot_info* info){
 	kprintf("Loader: %s\n", binfo_loader_name(info));
 	kprintf("virtual kmain: %p\nphys kmain:%p\n", (void*)kmain, virt_to_phys(kmain));
 
+	struct boot_module* modules[BOOT_MAX_MODS];
+	binfo_mods(info, modules);
+
+	kprintf("Listing modules:\n");
+	for (struct boot_module** module = modules;
+			*module != NULL;
+			module++)
+	{
+		kprintf (" Name: %s\n Addr: %p\n", bmod_name(*module), bmod_addr(*module));
+	}
+
+	/*
 	struct pde* kpd = __symval(__kpd, struct pde*);
 	print_pde (kpd + 768);
+	*/
 
 	init_timer(50);
 

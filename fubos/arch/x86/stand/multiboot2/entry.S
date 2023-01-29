@@ -42,7 +42,6 @@
 .globl _start
 _start:
 	cli
-
 	movl %ebx, __pa(mb2_binfo)
 
 /* 
@@ -121,5 +120,5 @@ ptbl_init_lpend:
 	ljmpl $GDT_KCODE, $__flush
 __flush:
 	
-	movl $__kstack_end, %esp
+	movl $(__kstack_end - 1), %esp
 	jmp mb2_entry

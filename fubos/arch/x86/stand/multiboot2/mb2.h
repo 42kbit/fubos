@@ -31,12 +31,22 @@ Offset	Type	Field Name	Note
 */
 
 #include <fubos/ints.h>
+#include <fubos/boot.h>
+#include <fubos/string.h>
+
+struct boot_module {
+	struct mb2_binfo_module* mb2_module;
+};
 
 struct boot_info {
 	const char * loader_name;
-	void * himem,
-	     * lomem;
+	struct boot_module modules[BOOT_MAX_MODS];
+	u32 modules_top;
 };
+
+static inline void mb2_init_boot_info (struct boot_info* info){
+	memset (info, 0, sizeof(*info));
+}
 
 /* Multiboot header tags
  */

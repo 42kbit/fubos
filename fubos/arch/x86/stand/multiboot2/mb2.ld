@@ -58,4 +58,7 @@ SECTIONS
 	__kstack_begin = . ;
 	. += 64K;
 	__kstack_end = . ;
+	. += PAGE_SIZE;
+	/* filled in entry.S */
+	__mb2_binfo_copy = . ;
 }
