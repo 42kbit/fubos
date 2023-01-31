@@ -1,5 +1,5 @@
-#ifndef __H_FUBOS_KLOG_H
-#define __H_FUBOS_KLOG_H
+#ifndef __H_FUBOS_INCLUDE_FUBOS_KLOG_H
+#define __H_FUBOS_INCLUDE_FUBOS_KLOG_H
 
 #include <fubos/stdarg.h>
 #include <fubos/types.h>
@@ -21,4 +21,4 @@ int kvprintf	(const char * fmt, va_list args);
 int ksprintf	(char * buf, const char * fmt, ...);
 int kprintf	(const char * fmt, ...);
 
-#endif /* __H_FUBOS_KLOG_H */
+#endif /* __H_FUBOS_INCLUDE_FUBOS_KLOG_H */

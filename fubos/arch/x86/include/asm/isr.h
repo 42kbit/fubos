@@ -1,5 +1,6 @@
-#ifndef __H_ISR_H
-#define __H_ISR_H
+#ifndef __H_FUBOS_ARCH_X86_INCLUDE_ASM_ISR_H
+#define __H_FUBOS_ARCH_X86_INCLUDE_ASM_ISR_H
+
 
 #define IRQ0	0x20
 #define IRQ15	0x2f
@@ -58,4 +59,5 @@ void reg_handler(u8 intno, intr_handler_t);
 #define isr_to_irq(isrn)	(isrn - IRQ(0))
 
 #endif /* __ASSEMBLY */
-#endif /* __H_ISR_H */
+
+#endif /* __H_FUBOS_ARCH_X86_INCLUDE_ASM_ISR_H */

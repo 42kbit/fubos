@@ -1,5 +1,5 @@
-#ifndef __H_IDT_H
-#define __H_IDT_H
+#ifndef __H_FUBOS_ARCH_X86_INCLUDE_ASM_IDT_H
+#define __H_FUBOS_ARCH_X86_INCLUDE_ASM_IDT_H
 
 #include <fubos/bitops.h>
 
@@ -73,4 +73,5 @@ void idt_load_entry (
 		u8 present );
 
 #endif /* __ASSEMBLY__ */
-#endif /* __H_IDT_H */
+
+#endif /* __H_FUBOS_ARCH_X86_INCLUDE_ASM_IDT_H */

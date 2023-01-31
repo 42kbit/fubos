@@ -1,5 +1,5 @@
-#ifndef __H_VGA_H
-#define __H_VGA_H
+#ifndef __H_FUBOS_ARCH_X86_INCLUDE_ASM_VGA_H
+#define __H_FUBOS_ARCH_X86_INCLUDE_ASM_VGA_H
 
 #include <fubos/ints.h>
 
@@ -13,4 +13,4 @@ struct vga_node {
 	u8 color;
 };
 
-#endif /* __H_VGA_H */
+#endif /* __H_FUBOS_ARCH_X86_INCLUDE_ASM_VGA_H */

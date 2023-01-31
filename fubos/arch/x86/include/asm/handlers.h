@@ -1,5 +1,6 @@
-#ifndef   __H_HANDLERS_H
-#define   __H_HANDLERS_H
+#ifndef __H_FUBOS_ARCH_X86_INCLUDE_ASM_HANDLERS_H
+#define __H_FUBOS_ARCH_X86_INCLUDE_ASM_HANDLERS_H
+
 
 #include <asm/isr.h>
 
@@ -8,4 +9,5 @@
  */
 void on_page_fault (struct isr_regs*);
 
-#endif /* __H_HANDLERS_H */
+
+#endif /* __H_FUBOS_ARCH_X86_INCLUDE_ASM_HANDLERS_H */

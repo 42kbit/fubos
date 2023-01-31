@@ -1,5 +1,5 @@
-#ifndef __H_FUBOS_ASSERT_H
-#define __H_FUBOS_ASSERT_H
+#ifndef __H_FUBOS_INCLUDE_FUBOS_ASSERT_H
+#define __H_FUBOS_INCLUDE_FUBOS_ASSERT_H
 
 /* https://stackoverflow.com/questions/807244/c-compiler-asserts-how-to-implement */
 
@@ -12,4 +12,4 @@
 #define return_val_if_fail(exp, value) return_val_if(!exp, value)
 #define return_if(exp) return_val_if(exp,)
 
-#endif /* __H_FUBOS_ASSERT_H */
+#endif /* __H_FUBOS_INCLUDE_FUBOS_ASSERT_H */

@@ -1,5 +1,5 @@
-#ifndef __H_FUBOS_STRING_H
-#define __H_FUBOS_STRING_H
+#ifndef __H_FUBOS_INCLUDE_FUBOS_STRING_H
+#define __H_FUBOS_INCLUDE_FUBOS_STRING_H
 
 #include <fubos/stddef.h>
 
@@ -13,4 +13,4 @@ char * strcat (char * s1, const char * s2);
 void __strncat_len(char* s1, const char * s2, size_t s,
 		size_t * s1_len, size_t * was_written);
 
-#endif /* __H_FUBOS_STRING_H*/
+#endif /* __H_FUBOS_INCLUDE_FUBOS_STRING_H */

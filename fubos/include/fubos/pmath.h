@@ -1,7 +1,7 @@
 /* Pointer arithmetic header
  */
-#ifndef   __H_PMATH_H
-#define   __H_PMATH_H
+#ifndef __H_FUBOS_INCLUDE_FUBOS_PMATH_H
+#define __H_FUBOS_INCLUDE_FUBOS_PMATH_H
 
 #include <fubos/types.h>
 #include <fubos/alignment.h>
@@ -22,4 +22,4 @@
 #define ptradd(ptr, offset)\
 	ptraddc(ptr, offset, typeof(x))
 
-#endif /* __H_PMATH_H */
+#endif /* __H_FUBOS_INCLUDE_FUBOS_PMATH_H */

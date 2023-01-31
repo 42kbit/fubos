@@ -1,5 +1,5 @@
-#ifndef   __H_FUBOS_BOOT_H
-#define   __H_FUBOS_BOOT_H
+#ifndef __H_FUBOS_INCLUDE_FUBOS_BOOT_H
+#define __H_FUBOS_INCLUDE_FUBOS_BOOT_H
 
 #include <fubos/compiler_attributes.h>
 #include <fubos/stddef.h>
@@ -21,4 +21,4 @@ void* bmod_addr (struct boot_module*);
 
 void kmain (struct boot_info* info) __noreturn;
 
-#endif /* __H_FUBOS_BOOT_H */
+#endif /* __H_FUBOS_INCLUDE_FUBOS_BOOT_H */

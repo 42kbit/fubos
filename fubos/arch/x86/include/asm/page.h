@@ -1,5 +1,5 @@
-#ifndef __H_PAGE_H
-#define __H_PAGE_H
+#ifndef __H_FUBOS_ARCH_X86_INCLUDE_ASM_PAGE_H
+#define __H_FUBOS_ARCH_X86_INCLUDE_ASM_PAGE_H
 
 #define PG_TBL_NENT 1024
 #define PG_DIR_NENT 1024
@@ -76,4 +76,5 @@ struct pte {
 #endif /* __ASSEMBLY__ */
 #endif /* __GNULD__ */
 
-#endif /* __H_PAGE_H */
+
+#endif /* __H_FUBOS_ARCH_X86_INCLUDE_ASM_PAGE_H */

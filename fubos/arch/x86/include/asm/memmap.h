@@ -1,11 +1,11 @@
-#ifndef   __H_MEMMAP_H
-#define   __H_MEMMAP_H
-
 /* 
  * This header defines:
  * memory layout in x86 systems
  * fubos virtual memory layout
  */
+
+#ifndef __H_FUBOS_ARCH_X86_INCLUDE_ASM_MEMMAP_H
+#define __H_FUBOS_ARCH_X86_INCLUDE_ASM_MEMMAP_H
 
 #include <fubos/bitops.h>
 
@@ -65,4 +65,5 @@ static inline void* phys_to_virt(volatile void * paddr){
 #endif /* __ASSEMBLY__ */
 #endif /* __GNULD__ */
 
-#endif /* __H_MEMMAP_H */
+
+#endif /* __H_FUBOS_ARCH_X86_INCLUDE_ASM_MEMMAP_H */

@@ -1,5 +1,5 @@
-#ifndef __H_GDT_H
-#define __H_GDT_H
+#ifndef __H_FUBOS_ARCH_X86_INCLUDE_ASM_GDT_H
+#define __H_FUBOS_ARCH_X86_INCLUDE_ASM_GDT_H
 
 #include <fubos/bitops.h>
 #include <fubos/assert.h>
@@ -80,4 +80,5 @@ extern struct gdt_ptr 	gdt_ptr;
 extern struct gdt_entry gdt[GDT_NENT];
 
 #endif /*  __ASSEMBLY__ */
-#endif /* __H_GDT_H */
+
+#endif /* __H_FUBOS_ARCH_X86_INCLUDE_ASM_GDT_H */

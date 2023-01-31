@@ -1,6 +1,3 @@
-#ifndef __H_PIC_H
-#define __H_PIC_H
-
 /*	Source:
  *	https://wiki.osdev.org/PIC
  */
@@ -8,6 +5,9 @@
 /* 
  * PIC IO ports
  */
+
+#ifndef __H_FUBOS_ARCH_X86_INCLUDE_ASM_PIC_H
+#define __H_FUBOS_ARCH_X86_INCLUDE_ASM_PIC_H
 
 #define PIC1	0x20 /* Master base */
 #define PIC2	0xA0 /* Slave  base */
@@ -49,4 +49,5 @@ void pic_remap_irq (void);
 void pic_send_eoi (u8 irq);
 
 #endif /* __ASSEMBLY__ */
-#endif /* __H_PIC_H */
+
+#endif /* __H_FUBOS_ARCH_X86_INCLUDE_ASM_PIC_H */

@@ -1,5 +1,5 @@
-#ifndef __H_FUBOS_STDARG_H
-#define __H_FUBOS_STDARG_H
+#ifndef __H_FUBOS_INCLUDE_FUBOS_STDARG_H
+#define __H_FUBOS_INCLUDE_FUBOS_STDARG_H
 
 typedef __builtin_va_list va_list;
 
@@ -9,4 +9,4 @@ typedef __builtin_va_list va_list;
 #define va_arg(v,t)	__builtin_va_arg(v,t)
 #define va_copy(d,s)	__builtin_va_copy(d,s)
 
-#endif /* __H_FUBOS_STDARG_H */
+#endif /* __H_FUBOS_INCLUDE_FUBOS_STDARG_H */

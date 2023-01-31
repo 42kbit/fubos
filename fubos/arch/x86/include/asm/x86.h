@@ -1,5 +1,5 @@
-#ifndef __H_X86_H
-#define __H_X86_H
+#ifndef __H_FUBOS_ARCH_X86_INCLUDE_ASM_X86_H
+#define __H_FUBOS_ARCH_X86_INCLUDE_ASM_X86_H
 
 #ifndef __ASSEMBLY__
 
@@ -84,4 +84,5 @@ __make_reg_all(cr3, l, u32, a);
 __make_reg_all(cr4, l, u32, a);
 
 #endif /* __ASSEMBLY__ */
-#endif /* __H_X86_H */
+
+#endif /* __H_FUBOS_ARCH_X86_INCLUDE_ASM_X86_H */

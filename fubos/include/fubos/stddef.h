@@ -1,5 +1,5 @@
-#ifndef __H_FUBOS_STDDEF_H
-#define __H_FUBOS_STDDEF_H
+#ifndef __H_FUBOS_INCLUDE_FUBOS_STDDEF_H
+#define __H_FUBOS_INCLUDE_FUBOS_STDDEF_H
 
 #define NULL ((void*)0)
 
@@ -13,4 +13,4 @@ typedef unsigned long ptrdiff_t;
 #define container_of(ptr, type, name) \
 	( (type*)((char*)ptr - offsetof(type,name)) )
 
-#endif /* __H_FUBOS_STDDEF_H */
+#endif /* __H_FUBOS_INCLUDE_FUBOS_STDDEF_H */
