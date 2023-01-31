@@ -49,7 +49,7 @@ static inline u8 inb (u16 port){
 }
 
 static inline void outb (u16 port, u8 value){
-    asm volatile("outb %0, %1" :: "r"(value), "r"(port));
+    asm volatile("outb %0, %1" :: "a"(value), "Nd"(port));
 }
 
 __make_reg_all(eax, l, u32, rm);

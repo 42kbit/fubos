@@ -1,4 +1,5 @@
 #include <asm/gdt.h>
+#include <fubos/ints.h>
 
 /*
  * Using flat memory model

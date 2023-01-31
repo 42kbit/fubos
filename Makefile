@@ -25,6 +25,14 @@ endif
 CF_ALL	:=-Wall -Wextra
 ASF_ALL	:=-Wall -Wextra
 
+ifeq ($(DEBUG),n)
+CF_ALL	+=-O2
+ASF_ALL	+=-O2
+else
+CF_ALL	+=-O0
+ASF_ALL	+=-O0
+endif
+
 # LINK FLAGS
 LF_ALL	:=
 

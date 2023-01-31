@@ -20,7 +20,7 @@
 #define PDE_AVL0	(bit(6))
 #define PDE_PS 		(bit(7))
 #define PDE_AVL(x)	(bitoff(x, 8))
-#define PDE_ADDR(x)	(bitoff(x, 12))
+#define PDE_ADDR(x)	(bitcut(x, 12, 20) << 12)
 
 #define PTE_P 		(bit(0))
 #define PTE_RDWR	(bit(1))
@@ -32,7 +32,7 @@
 #define PTE_PAT 	(bit(7))
 #define PTE_G	 	(bit(8))
 #define PTE_AVL(x)	(bitoff(x, 9))
-#define PTE_ADDR(x)	(bitoff(x, 12))
+#define PTE_ADDR(x)	(bitcut(x, 12, 20) << 12)
 
 #ifndef __ASSEMBLY__
 

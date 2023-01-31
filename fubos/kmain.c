@@ -12,10 +12,13 @@
 
 #include <fubos/klog.h>
 #include <fubos/boot.h>
+#include <fubos/string.h>
 
 /* 
  * not arch independent code will be fixed later
  */
+
+#include <asm/page.h>
 
 void arch_init	(void);
 void cpu_relax	(void) __noreturn;
@@ -60,6 +63,9 @@ void print_pde (struct pde * ent){
 		pde_4mib_page(ent), pde_addr(ent));
 }
 
+struct pde tm_pd[PG_TBL_NENT] __aligned(PAGE_SIZE);
+struct pte tm_pt[PG_TBL_NENT] __aligned(PAGE_SIZE);
+
 void kmain(struct boot_info* info){
 	arch_init();
 
@@ -94,13 +100,29 @@ void kmain(struct boot_info* info){
 		int   e_version;
 		int   e_entry;
 	};
+	/* physical address of elf header */
 	struct elf_header32* mod_addr = (struct elf_header32*)bmod_addr(modules[0]);
-	/*
-	asm volatile ("jmp %0\n\t" :: "r"(mod_addr->e_entry));
-	*/
-	kprintf ("%s\n", mod_addr);
+
+	/* clone kernel page table and directory */
+	extern sym __kpd;
+	memcpy (tm_pd, __symval(__kpd, void*), sizeof(struct pde) * PG_DIR_NENT);
+	extern sym __kpt;
+	memcpy (tm_pt, __symval(__kpt, void*), sizeof(struct pte) * PG_TBL_NENT);
+	/* module is linked to virtual address 0x08048000, configure pagetable for it. */
+	tm_pd[0x08048000 / mib(4)].pde = PDE_P | PDE_RDWR | PDE_US | PDE_ACC | PDE_ADDR((addr_t)virt_to_phys(tm_pt));
+	print_pde(tm_pd + (0x08048000 / mib(4)));
+
+	for (int i = 0; i < PG_TBL_NENT; i++){
+		tm_pt[i].pte = PTE_P | PTE_RDWR | PTE_US | PTE_ADDR((addr_t)mod_addr);
+	}
 
 	init_timer(50);
+	/* swap page table, and jump to "process" */
+	set_cr3((addr_t)virt_to_phys(tm_pd));
+	kprintf("%p\n", tm_pt);
+	kprintf("%s\n", 0x08048000);
+	kprintf ("Im still standing\n");
+	asm volatile ("jmp 0x08048054\n\t");
 
 	cpu_relax();
 }

@@ -10,7 +10,7 @@
  * and align by 'alignment'
  */
 #define ptraddca(ptr, offset, type, alignment)\
-	((type)align((addr_t)((char*)ptr+(offset)), alignment))
+	((type)align((addr_t)((addr_t)ptr+(offset)), alignment))
 
 /* offset pointer 'x' by 'val' bytes and cast it to 'type'
  */
