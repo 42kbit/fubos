@@ -1,5 +1,5 @@
-#ifndef __H_FUBOS_COMPILER_ATTRIBUTES_H
-#define __H_FUBOS_COMPILER_ATTRIBUTES_H
+#ifndef __H_FUBOS_INCLUDE_FUBOS_COMPILER_ATTRIBUTES_H
+#define __H_FUBOS_INCLUDE_FUBOS_COMPILER_ATTRIBUTES_H
 
 #define __atr(x)\
 	__attribute__((x))
@@ -22,4 +22,5 @@
 #define __always_inline\
 	__atr(always_inline)
 
-#endif /* __H_FUBOS_SECTIONS_H */
+
+#endif /* __H_FUBOS_INCLUDE_FUBOS_COMPILER_ATTRIBUTES_H */

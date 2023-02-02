@@ -1,5 +1,5 @@
-#ifndef   __H_CR_H
-#define   __H_CR_H
+#ifndef __H_FUBOS_ARCH_X86_INCLUDE_ASM_CR_H
+#define __H_FUBOS_ARCH_X86_INCLUDE_ASM_CR_H
 
 #include <fubos/bitops.h>
 
@@ -8,4 +8,6 @@
 
 #ifndef __ASSEMBLY__
 #endif /* __ASSEMBLY__ */
-#endif /* __H_CR_H */
+
+
+#endif /* __H_FUBOS_ARCH_X86_INCLUDE_ASM_CR_H */
